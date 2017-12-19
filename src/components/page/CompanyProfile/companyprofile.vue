@@ -29,6 +29,7 @@
 
 </style>
 <template>
+  <transition name="slide">
   <div class="main">
     <header>
         <mu-appbar title="公司简介" style="text-align: center">
@@ -85,6 +86,7 @@
       <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
     </div>
   </div>
+  </transition>
 </template>
 <script>
   export default {
@@ -99,7 +101,7 @@
       }
     },
     mounted:function () {
-      this.trigger = this.$el;
+      this.trigger = document.getElementById("ref");
       this.scroller = document.getElementById("ref");
     },
     methods:{
