@@ -8,6 +8,8 @@ import companyprofile from '@/components/page/CompanyProfile/companyprofile'
 import learnresource from '@/components/page/LearnResource/learnresource'
 import presidentspeech from '@/components/page/presidentSpeech/presidentspeech'
 import processmanagement from '@/components/page/ProcessManagement/processmanagement'
+import pdfRead from '@/components/common/pdfRead'
+import videoPlay from '@/components/common/videoPlay'
 Vue.use(Router);
 
 export default new Router({
@@ -20,11 +22,12 @@ export default new Router({
     {path: '/index', component: index,},
     { path: '/CompanyProfile',component:companyprofile},
     { path: '/Templet',component:templet},
-    { path: '/SunVideo',component: sunvideo },
+    { path: '/SunVideo',component: sunvideo},
     { path: '/Gallery', component: gallery},
     {path: '/LearnResource',component: learnresource},
     {path: '/PresidentSpeech',component: presidentspeech},
-    {path: '/ProcessManagement',component: processmanagement
-    }
+    {path: '/ProcessManagement',component: processmanagement},
+    {path: '/videoPlay',component: videoPlay},
+    {path: '/pdfRead',component: pdfRead}
   ]
 })

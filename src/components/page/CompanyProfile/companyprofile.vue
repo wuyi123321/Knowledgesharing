@@ -1,9 +1,4 @@
 <style scoped>
-  *{
-    margin: 0;
-    padding: 0;
-  }
-
   .main{
     height: 100vh;
     display: flex;
@@ -26,78 +21,123 @@
     position: relative;
     user-select: none;
   }
+  .mu-tabs{
+    background-color: #fff;
+  }
+  .mu-tab-text{
+    color: #009866;
+  }
 
+ #aa .mu-tab-link-highlight{
+    background-color: #009866;
+  }
+  #aa .mu-tab-link-highlight{
+    background-color: #009866;
+  }
 </style>
 <template>
-  <transition name="slide">
-  <div class="main">
+
+  <div class="main" id="aa">
     <header>
         <mu-appbar title="公司简介" style="text-align: center">
           <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
           <mu-icon-menu icon="more_vert" slot="right">
-            <mu-menu-item title="添加设备" @click="toggle()"/>
-            <mu-menu-item title="查询设备"/>
-            <mu-menu-item title="扫一扫"/>
+            <mu-menu-item title="中文"/>
+            <mu-menu-item title="英文"/>
           </mu-icon-menu>
         </mu-appbar>
-        <mu-drawer right :docked="background" width="85%" :open="open" @close="toggle()">
-          <mu-appbar title="添加台账设备"/>
-          <mu-list>
-            <mu-list-item title="Menu Item 1"/>
-            <mu-list-item title="Menu Item 2"/>
-            <mu-list-item title="Menu Item 3"/>
-            <mu-list-item @click.native="open = false" title="Close"/>
-          </mu-list>
-        </mu-drawer>
-        <mu-flexbox class="">
-          <mu-flexbox-item class="flex-demo">
-            设备SN
-          </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo">
-            设备名称
-          </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo">
-            设备类型
-          </mu-flexbox-item>
-
-        </mu-flexbox>
+      <mu-tabs :value="activeTab" @change="handleTabChange">
+        <mu-tab value="tab1" title="公司简介" style="color: #009688"/>
+        <mu-tab value="tab2" title="各事业部简介" style="color: #009688"/>
+      </mu-tabs>
         <mu-divider/>
+
     </header>
     <div id="ref">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
+      <div v-if="activeTab === 'tab1'">
+      <mu-list>
+        <mu-sub-header>政府受众</mu-sub-header>
+        <mu-list-item title="Mike Li">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right" @click="download('yuedu.ppt')"/>
+        </mu-list-item>
+        <mu-list-item title="Maco Mai">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right"/>
+        </mu-list-item>
+        <mu-list-item title="Alex Qin">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right"/>
+        </mu-list-item>
+        <mu-list-item title="Allen Qun">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right"/>
+        </mu-list-item>
+        <mu-list-item title="Myron Liu">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right"/>
+        </mu-list-item>
+      </mu-list>
+      <mu-divider/>
+      <mu-list>
+        <mu-sub-header>客户受众</mu-sub-header>
+        <mu-list-item title="Gaia Zhou">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right"/>
+        </mu-list-item>
+        <mu-list-item title="Miller Wang">
+          <mu-avatar :src="imgP" slot="leftAvatar"/>
+          <mu-icon value="get_app" slot="right"/>
+        </mu-list-item>
+      </mu-list>
+      <mu-divider/>
+      </div>
+      <div v-if="activeTab === 'tab2'">
         <mu-list>
-          <template v-for="i in 20">
-              <mu-list-item >
-                <mu-flexbox class="" >
-                  <mu-flexbox-item style="white-space:nowrap;overflow: hidden; text-overflow: ellipsis" >
-                    DC119-FFWQ-58586655
-                  </mu-flexbox-item>
-                  <mu-flexbox-item  style="text-align: center">
-                    系统服务器{{i}}
-                  </mu-flexbox-item>
-                  <mu-flexbox-item style="text-align: center" >
-                    服务器
-                  </mu-flexbox-item>
-                </mu-flexbox>
-              </mu-list-item>
-              <mu-divider/>
-          </template>
+          <!--<mu-sub-header>政府受众</mu-sub-header>-->
+          <mu-list-item title="电池事业一部简介">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right" @click="download('yuedu.ppt')"/>
+          </mu-list-item>
+          <mu-divider/>
+          <mu-list-item title="信息中心简介">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-divider/>
+          <mu-list-item title="行政安全中心简介">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-divider/>
+          <mu-list-item title="东莞锂威简介">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-divider/>
+          <mu-list-item title="电池事业二部简介">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
         </mu-list>
-      <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+        <mu-divider/>
+      </div>
     </div>
   </div>
-  </transition>
+
 </template>
 <script>
+  import w from "@/assets/icon/w.jpg"
   export default {
+
     data () {
+
       return {
-        background:false,
-        open:false,
+        imgP:w,
         refreshing:false,
         trigger: null,
-        loading:false,
-        scroller:null
+        activeTab: 'tab1'
       }
     },
     mounted:function () {
@@ -112,13 +152,11 @@
         console.log("bbb");
         this.refreshing=true
       },
-
-      loadMore:function () {
-        console.log("AAaa");
-        this.loading=true
+      handleTabChange (val) {
+        this.activeTab = val
       },
-      toggle:function () {
-        this.open = !this.open
+      download:function (url) {
+        console.log(url)
       }
 
     }

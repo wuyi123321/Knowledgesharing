@@ -13,6 +13,9 @@
     justify-content: center;
     align-items: center;
   }
+  .flex-demo:hover{
+    background: #ddd;
+  }
   .flex-demo:last-child{
     border-right: none;
   }

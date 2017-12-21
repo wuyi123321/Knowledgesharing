@@ -37,7 +37,14 @@
       '$route' (to, from) {
         if(to.path == '/index'){
           this.transitionName = 'slide-right';
-        }else{
+        }
+        else if(from.path == '/pdfRead'){
+          this.transitionName = 'slide-right';
+        }
+        else if(from.path == '/videoPlay'){
+          this.transitionName = 'slide-right';
+        }
+        else{
           this.transitionName = 'slide-left';
         }
       }

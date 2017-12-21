@@ -1,75 +1,126 @@
+<style scoped>
+  .main{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .header{
+    height: 56px;
+  }
+  #scoll{
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    user-select: none;
+  }
+
+</style>
+
 <template>
-  <div>
-    <mu-appbar title="PPT模板" style="text-align: center">
-      <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-      <mu-icon-menu icon="more_vert" slot="right">
-        <mu-menu-item title="添加设备" />
-        <mu-menu-item title="查询设备"/>
-        <mu-menu-item title="扫一扫"/>
-      </mu-icon-menu>
-    </mu-appbar>
+  <div class="main">
+    <div class="header">
+          <mu-appbar title="PPT模板" style="text-align: center">
+            <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+            <mu-icon-menu icon="more_vert" slot="right">
+              <mu-menu-item title="添加设备" />
+              <mu-menu-item title="查询设备"/>
+              <mu-menu-item title="扫一扫"/>
+            </mu-icon-menu>
+          </mu-appbar>
+    </div>
+    <div id="scoll">
+      <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
+        <mu-list>
+          <mu-sub-header>月度例会PPT模板</mu-sub-header>
+            <mu-list-item title="Mike Li" @click="showPdf">
+                <mu-avatar :src="imgP" slot="leftAvatar"/>
+                <mu-icon value="get_app" slot="right" @click.stop="download('yuedu.ppt')"/>
+            </mu-list-item>
+          <mu-list-item title="Maco Mai">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-list-item title="Alex Qin">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-list-item title="Allen Qun">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-list-item title="Myron Liu">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+        </mu-list>
+        <mu-divider/>
+        <mu-list>
+          <mu-sub-header>讨论型PPT模板</mu-sub-header>
+          <mu-list-item title="Gaia Zhou">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-list-item title="Miller Wang">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+        </mu-list>
+        <mu-divider/>
+        <mu-list>
+          <mu-sub-header>转正类PPT模板</mu-sub-header>
+          <mu-list-item title="职员转正PPT模板">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-list-item title="启明星转正PPT模板">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+          <mu-list-item title="职员晋升PPT模板">
+            <mu-avatar :src="imgP" slot="leftAvatar"/>
+            <mu-icon value="get_app" slot="right"/>
+          </mu-list-item>
+
+        </mu-list>
+    </div>
+
   </div>
 </template>
 <script>
+  import p from "@/assets/icon/p.jpg"
   export default {
     data () {
       return {
-
+        imgP:p,
+        refreshing:false,
+        trigger: null,
+        pdfshow:false,
+        transitionName: 'slide-left',
       }
     },
-    methods: {
-
+    mounted:function () {
+      this.trigger = document.getElementById("scoll");
+    },
+    watch: {
+    },
+      methods: {
+      refresh:function () {
+        console.log("bbb");
+        this.refreshing=true
+      },
       back:function () {
         this.$router.go(-1)
       },
+      showPdf:function () {
+        console.log(this.pdfMess);
+        this.$router.push({ path: "pdfRead" });
+      },
+      download:function (a) {
+        alert(a);
+      }
     }
   }
 </script>
-<style scoped>
-  .layout{
-    background-color: rgb(236, 236, 236);
-  }
 
-  .header{
-    background-color: #7e57c2;
-  }
-
-  .logo{
-    font-size: 24px;
-    color: white;
-    display: inline-block;
-    padding: 10px 20px;
-  }
-
-  .nav{
-    display: inline-block;
-    width: calc(100% - 150px);
-    margin: 0 auto;
-  }
-
-  .tab{
-    margin: 0 auto;
-    width: 400px;
-    background-color: rgba(0, 0, 0, 0);
-  }
-
-  .content{
-    width: 90%;
-    margin: 0 auto;
-  }
-
-  .breadcrumb{
-    margin: 10px 0;
-  }
-
-  .body{
-    background-color: white;
-    border-radius: 5px;
-    min-height: 500px;
-  }
-
-  .footer{
-    padding: 20px 0;
-    text-align: center;
-  }
-</style>
