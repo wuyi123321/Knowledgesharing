@@ -60,7 +60,7 @@
       <mu-circular-progress :size="40" v-show="loading"/>
         <div>加载中...</div>
       </div>
-      <iframe class="pdfRead"  frameborder=0 scrolling=auto :src="url+pdfMess.path" v-show="!loading"></iframe>
+      <iframe class="pdfRead"  frameborder=0 scrolling=auto :src="url+pdfMess.path" v-show="!loading" id ="iframe"></iframe>
       <div id="a"></div>
     </div>
   </div>
@@ -75,7 +75,7 @@
       return {
           pdfMess:{
             name:"sunwoda周会总结",
-            path:"http://appinter.sunwoda.com/img/activity/SUNWODA_HRM%E5%AE%9E%E6%96%BD%E9%A1%B9%E7%9B%AE-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.pdf"
+            path:"https://appinter.sunwoda.com/img/activity/SUNWODA_HRM%E5%AE%9E%E6%96%BD%E9%A1%B9%E7%9B%AE-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.pdf"
           },
         url:"http://mozilla.github.io/pdf.js/web/viewer.html?file=",
         loading:true,
@@ -83,11 +83,13 @@
     },
     mounted:function () {
       var vm =this;
-      document.getElementById("a").onload=function(){
+      var ifem = document.getElementById("iframe");
+      ifem.onload=function(){
         vm.loading = false;
       }
+
       console.log("aaa");
-      vm.loading = false;
+//    vm.loading = false;
     },
     methods: {
 

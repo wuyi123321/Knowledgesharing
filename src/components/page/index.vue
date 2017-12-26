@@ -30,7 +30,7 @@
     </mu-appbar>
     <div class="line_demo">
       <div class="flex-demo" @click="hrefTo('CompanyProfile')">
-        <mu-icon value="note_add" :size="30" color="#009688"/>
+        <mu-icon value="chrome_reader_mode" :size="30" color="#009688"/>
         <span class="demo_name">公司简介</span>
       </div>
       <div class="flex-demo" @click="hrefTo('Templet')">
@@ -61,8 +61,9 @@
         <mu-icon value="settings" :size="30" color="#009688"/>
         <span class="demo_name">流程管理</span>
       </div>
-      <div class="flex-demo" style="border: none">
-
+      <div class="flex-demo" @click="hrefTo('forum')">
+        <mu-icon value="group" :size="30" color="#009688"/>
+        <span class="demo_name">OA论坛</span>
       </div>
       <div class="flex-demo" style="border: none">
 

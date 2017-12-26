@@ -8,8 +8,13 @@ import companyprofile from '@/components/page/CompanyProfile/companyprofile'
 import learnresource from '@/components/page/LearnResource/learnresource'
 import presidentspeech from '@/components/page/presidentSpeech/presidentspeech'
 import processmanagement from '@/components/page/ProcessManagement/processmanagement'
+import forum from '@/components/page/forum/forum'
 import pdfRead from '@/components/common/pdfRead'
 import videoPlay from '@/components/common/videoPlay'
+import myforum from '@/components/page/forum/children/my'
+import forummessage from '@/components/page/forum/children/message'
+import forumcard from '@/components/page/forum/children/card'
+import forumcount from '@/components/page/forum/children/count'
 Vue.use(Router);
 
 export default new Router({
@@ -17,16 +22,22 @@ export default new Router({
     {
       path: '/',
       redirect: '/index',
-
     },
     {path: '/index', component: index,},
-    { path: '/CompanyProfile',component:companyprofile},
-    { path: '/Templet',component:templet},
+    { path: '/CompanyProfile',component:companyprofile, meta: { keepAlive: true }},
+    { path: '/Templet',component:templet, meta: { keepAlive: true }},
     { path: '/SunVideo',component: sunvideo},
     { path: '/Gallery', component: gallery},
     {path: '/LearnResource',component: learnresource},
     {path: '/PresidentSpeech',component: presidentspeech},
     {path: '/ProcessManagement',component: processmanagement},
+    {path: '/forum',component: forum,children:[
+      {path: '/', redirect: '/forumcount',},
+      {path: '/myforum',component: myforum},
+      {path: '/forummessage',component: forummessage},
+      {path: '/forumcard',component: forumcard},
+      {path: '/forumcount',component: forumcount},
+    ]},
     {path: '/videoPlay',component: videoPlay},
     {path: '/pdfRead',component: pdfRead}
   ]
