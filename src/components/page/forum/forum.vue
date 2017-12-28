@@ -19,62 +19,13 @@
     border-top: solid 1px #eee;
     height: 57px;
   }
- .vidoItem{
-   margin-bottom: 10px;
-   width: 100%;
-   height: 200px;
-   position: relative;
- }
- .vidoItem:last-child{
-   margin-bottom: 0;
- }
-  .vidoTitle{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 40px;
-    width: 100%;
-    background-color: rgba(0,0,0,0.3);
-    color: #ffff;
-    line-height: 40px;
-    font-size: 0.3rem;
-
-
-    /*border-top: solid 1px #fff;*/
-    border-bottom: solid 1px #888;
-    padding-left: 10px;
-
-  }
-  .vidoPlay{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    line-height: 0;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-  }
- .vidoTime{
-   position: absolute;
-   right: 5px;
-   bottom: 5px;
-   background-color: rgba(0,0,0,0.3);
-   color: #fff;
-   padding: 3px;
-   border-radius: 8px;
- }
  .mu-buttom-item{
    min-width: 30px;
-
  }
 </style>
 <template>
   <div class="main">
     <div class="header">
-
     <mu-appbar title="OA论坛" style="text-align: center">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
       <mu-icon-menu icon="more_vert" slot="right">

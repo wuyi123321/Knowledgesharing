@@ -13,111 +13,109 @@
     -webkit-overflow-scrolling: touch;
     position: relative;
     user-select: none;
-  }
-
-  .footer{
-    border-top: solid 1px #eee;
-    height: 57px;
-  }
- .vidoItem{
-   margin-bottom: 10px;
-   width: 100%;
-   height: 200px;
-   position: relative;
- }
- .vidoItem:last-child{
-   margin-bottom: 0;
- }
-  .vidoTitle{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 40px;
-    width: 100%;
-    background-color: rgba(0,0,0,0.3);
-    color: #ffff;
-    line-height: 40px;
-    font-size: 0.3rem;
-
-
-    /*border-top: solid 1px #fff;*/
-    border-bottom: solid 1px #888;
-    padding-left: 10px;
 
   }
-  .vidoPlay{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    line-height: 0;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-  }
- .vidoTime{
-   position: absolute;
-   right: 5px;
-   bottom: 5px;
-   background-color: rgba(0,0,0,0.3);
-   color: #fff;
-   padding: 3px;
-   border-radius: 8px;
- }
- .mu-buttom-item{
-   min-width: 30px;
-
- }
 </style>
 <template>
   <div class="main">
     <div class="header">
 
-    <mu-appbar title="OA论坛" style="text-align: center">
+    <mu-appbar :title="title" style="text-align: center">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
       <mu-icon-menu icon="more_vert" slot="right">
-        <mu-menu-item title="添加设备" />
-        <mu-menu-item title="查询设备"/>
-        <mu-menu-item title="扫一扫"/>
+        <mu-menu-item title="全部" />
+        <mu-menu-item title="精华" />
       </mu-icon-menu>
     </mu-appbar>
     </div>
     <div class="conter" id="scoll">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
-      <router-view></router-view>
-    </div>
+      <div class="forumItem">
+          <div class="title"></div>
+        <p><span style="color: rgb(52, 73, 94); font-family: &quot;Source Sans Pro&quot;,
+&quot;
+Helvetica Neue&quot;
+, Arial, sans-serif; font-size: 15px;
+ font-style: normal;
+  font-variant-ligatures: normal; font-variant-caps: normal;
+  font-weight: 400; letter-spacing: normal; orphans: 2;
+  text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2;
+  word-spacing: 0.75px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+   text-decoration-style: initial; text-decoration-color: initial; display: inline !important;
+    float: none;">Vue (读音 /vju?/，类似于<span>&nbsp;</span></span>
+          <strong style="font-weight: 600; color: rgb(44, 62, 80);
+          font-family: &quot;Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Arial,
+           sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal;
+            font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start;
+             text-indent: 0px; text-transform: none; white-space: normal; widows: 2;
+             word-spacing: 0.75px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+              text-decoration-style: initial; text-decoration-color: initial;">view</strong>
+          <span style="color: rgb(52, 73, 94); font-family: &quot;Source Sans Pro&quot;,
+&quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px; font-style: normal;
+ font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal;
+ orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2;
+  word-spacing: 0.75px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+  text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">) 是一套用于构建用户界面的</span>
+          <strong style="font-weight: 600; color: rgb(44, 62, 80); font-family: &quot;Source Sans Pro&quot;
+          , &quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal;
+          font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none;
+           white-space: normal; widows: 2; word-spacing: 0.75px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+            text-decoration-style: initial; text-decoration-color: initial;">渐进式框架</strong><span style="color: rgb(52, 73, 94); font-family: &quot;
+            Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px; font-style: normal;
+            font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2;
+            text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0.75px;
+             -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial;
+             text-decoration-color: initial; display: inline !important; float: none;">。
+            与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与</span>
+          <a href="https://cn.vuejs.org/v2/guide/single-file-components.html" style="text-decoration: none; color: rgb(66, 185, 131); font-weight: 600;
+          font-family: &quot;Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px; font-style: normal;
+          font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start;
+           text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0.75px; -webkit-text-stroke-width: 0px;
+            background-color: rgb(255, 255, 255);">现代化的工具链</a><span style="color: rgb(52, 73, 94); font-family:
+              &quot;Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px; font-style: normal;
+               font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2;
+               text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0.75px; -webkit-text-stroke-width: 0px;
+               background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+                  以及各种</span><a href="https://github.com/vuejs/awesome-vue#libraries--plugins" rel="noopener"
+                                        style="text-decoration: none; color: rgb(66, 185, 131); font-weight: 600; font-family: &quot;Source Sans Pro&quot;,
+                                    &quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal;
+                                     letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0.75px;
+                                      -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);" target="_blank">支持类库</a><span style="color: rgb(52, 73, 94);
+                                      font-family: &quot;Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; font-size: 15px;
+                                      font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2;
+                                       text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0.75px; -webkit-text-stroke-width: 0px;
+                                        background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+                                                 结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。</span>
 
-    <div class="footer">
-        <mu-bottom-nav :value="bottomNav" @change="handleChange">
-          <mu-bottom-nav-item value="forumcount" title="论坛" icon="perm_camera_mic"/>
-          <mu-bottom-nav-item value="forumcard" title="帖子" icon="assignment"/>
-          <div class="mu-buttom-item" style="display: flex; flex-direction: column;justify-content:center;align-items: center;">
-          <mu-icon  value="add" style="padding-right: 8px;padding-left: 8px;padding-top: 3px;padding-bottom: 3px;background-color:#009688;border-radius: 5px;color: #fff"/>
-          </div>
-            <mu-bottom-nav-item value="forummessage" title="消息" icon="email"/>
-          <mu-bottom-nav-item value="myforum" title="我的" icon="perm_identity"/>
-        </mu-bottom-nav>
-
+          <img src="http://ekp.sunwoda.com/ekp/resource/fckeditor/editor/filemanager/download?fdId=16095864ead99bef3656a8648258a214&amp;picthumb=big" />
+          <span style="color: rgb(52, 73, 94); font-family: &quot;Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif;
+           font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal;
+           orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0.75px;
+            -webkit-text-stroke-width: 0px; background-color: rgb(248, 248, 248); text-decoration-style: initial;
+            text-decoration-color: initial; display: inline !important; float: none;">
+            官方指南假设你已了解关于 HTML、CSS 和 JavaScript 的中级知识。如果你刚开始学习前端开发，将框架作为你的第一步可能不是最好的主意&mdash;&mdash;
+            掌握好基础知识再来吧！之前有其它框架的使用经验会有帮助，但这不是必需的。</span></p>
+      </div>
     </div>
   </div>
 </template>
 <script>
-  import img1 from "@/assets/vido.jpg"
-  import img2 from "@/assets/vido2.jpg"
+
   export default {
     data () {
+
       return {
-        img1:img1,
-        img2:img2,
-        bottomNav: 'forumcount',
+        title:"文化活动",
         refreshing:false,
         trigger: null,
       }
     },
     mounted:function () {
+      this.title = this.$route.query.title;
       this.trigger = document.getElementById("scoll");
+      $(".conter p").removeAttr("style")
+      $(".conter span").removeAttr("style")
+      $(".conter img").attr("style","width:30vw;height:30vw;display:block;")
     },
     methods: {
       refresh:function () {
@@ -127,10 +125,6 @@
       back:function () {
         this.$router.go(-1)
       },
-      handleChange (val) {
-        this.bottomNav = val
-        this.$router.replace({ path: val});
-      }
     }
   }
 </script>

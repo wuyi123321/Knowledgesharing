@@ -38,12 +38,16 @@
         if(to.path == '/index'){
           this.transitionName = 'slide-right';
         }
-        else if(from.path == '/pdfRead'){
+        else if(to.path == '/forumItem'){
+          this.transitionName = 'slide-left';
+          return 0
+        }
+        else if(from.path == '/pdfRead' || from.path == '/forumIist' || from.path == '/forumItem' || from.path == '/videoPlay'){
           this.transitionName = 'slide-right';
         }
-        else if(from.path == '/videoPlay'){
-          this.transitionName = 'slide-right';
-        }
+//        else if(from.path == '/videoPlay'){
+//          this.transitionName = 'slide-right';
+//        }
         else{
           this.transitionName = 'slide-left';
         }

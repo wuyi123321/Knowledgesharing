@@ -3,12 +3,11 @@
 </style>
 <template>
   <div class="main">
-   tiezi
+   <forum-lall></forum-lall>
   </div>
 </template>
 <script>
-  import img1 from "@/assets/vido.jpg"
-  import img2 from "@/assets/vido2.jpg"
+  import forumLall from "@/components/page/forum/forumcom/forumLall"
   export default {
     data () {
       return {
@@ -21,6 +20,9 @@
     },
     methods: {
 
+    },
+    components: {
+      forumLall
     }
   }
 </script>
