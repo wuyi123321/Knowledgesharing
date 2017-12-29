@@ -5,6 +5,7 @@
     padding-top: 10px;
     padding-bottom: 5px;
     font-size: 0.25rem;
+    border-bottom: solid 10px #eee;
   }
 
   .forumItem .title{
