@@ -3,11 +3,6 @@
     <div class="header">
     <mu-appbar title="视频播放" style="text-align: center;background-color: #222">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-      <mu-icon-menu icon="more_vert" slot="right">
-        <mu-menu-item title="添加设备" />
-        <mu-menu-item title="查询设备"/>
-        <mu-menu-item title="扫一扫"/>
-      </mu-icon-menu>
     </mu-appbar>
     </div>
       <div class="videobox" >
@@ -24,6 +19,11 @@
         videosrc:"http://appweb.sunwoda.com/select/ceshi/1.mp4"
       }
       },
+    mounted:function (){
+
+      this.videosrc = this.$route.query.url;
+      console.log(this.videosrc );
+    },
     methods: {
       back:function () {
         this.$router.go(-1)

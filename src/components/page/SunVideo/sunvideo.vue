@@ -21,8 +21,10 @@
  .vidoItem{
    margin-bottom: 10px;
    width: 100%;
-   height: 200px;
+   min-height: 200px;
    position: relative;
+   overflow: hidden;
+   background-color: #666;
  }
  .vidoItem:last-child{
    margin-bottom: 0;
@@ -37,9 +39,6 @@
     color: #ffff;
     line-height: 40px;
     font-size: 0.3rem;
-
-
-    /*border-top: solid 1px #fff;*/
     border-bottom: solid 1px #888;
     padding-left: 10px;
 
@@ -69,63 +68,31 @@
 <template>
   <div class="main">
     <div class="header">
-
-
-    <mu-appbar title="欣旺达视频" style="text-align: center">
-      <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-      <mu-icon-menu icon="more_vert" slot="right">
-        <mu-menu-item title="添加设备" />
-        <mu-menu-item title="查询设备"/>
-        <mu-menu-item title="扫一扫"/>
-      </mu-icon-menu>
-    </mu-appbar>
+        <mu-appbar title="欣旺达视频" style="text-align: center">
+          <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+        </mu-appbar>
     </div>
     <div class="conter" id="scoll">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
-          <div class="vidoItem"  @click="toPlay">
-            <div class="vidoTitle">梅里最后10秒绝杀对手</div>
-            <img :src="img1" width="100%" height="100%">
+          <div class="vidoItem"  v-for="item in data" @click="toPlay(item.fileUrl,item.fileType)" >
+            <div class="videobox" style="position: absolute;top: 0;left: 0" >
+              <video id="mainvideo"  width="100%" height="100%"  :src="'http://video.sunwoda.com/'+item.fileUrl+'.'+item.fileType" ></video>
+            </div>
+            <div class="vidoTitle">{{item.fileName}}</div>
+            <!--<img :src="img1" width="100%" height="100%">-->
             <div class="vidoPlay">
               <mu-icon value="arrow_right" :size="48"/>
             </div>
             <div class="vidoTime">
-              14:20
+              {{item.fdVideoLength}}
             </div>
           </div>
-          <div class="vidoItem" >
-            <div class="vidoTitle">lalalalalalalal</div>
-            <img :src="img2" width="100%" height="100%">
-            <div class="vidoPlay">
-              <mu-icon value="arrow_right" :size="48"/>
-            </div>
-            <div class="vidoTime">
-               14:20
-            </div>
-          </div>
-          <div class="vidoItem" >
-            <div class="vidoTitle">梅里最后10秒绝杀对手</div>
-            <img :src="img1" width="100%" height="100%">
-            <div class="vidoPlay">
-              <mu-icon value="arrow_right" :size="48"/>
-            </div>
-            <div class="vidoTime">
-              14:20
-            </div>
-          </div>
-          <div class="vidoItem" >
-            <div class="vidoTitle">lalalalalalalal</div>
-            <img :src="img2" width="100%" height="100%">
-            <div class="vidoPlay">
-              <mu-icon value="arrow_right" :size="48"/>
-            </div>
-            <div class="vidoTime">
-              14:20
-            </div>
-          </div>
+      <mu-dialog :open="dialog" title="提示信息">
+        格式不支持在线播放，请在OA论坛模块观看
+        <mu-flat-button label="确定" slot="actions" primary @click="dialog=false"/>
+      </mu-dialog>
     </div>
-
     <div class="footer">
-
         <mu-bottom-nav :value="bottomNav" @change="handleChange">
           <mu-bottom-nav-item value="recents" title="宣传类" icon="settings_voice"/>
           <mu-bottom-nav-item value="favorites" title="记录类" icon="theaters"/>
@@ -137,36 +104,86 @@
   </div>
 </template>
 <script>
-  import img1 from "@/assets/vido.jpg"
-  import img2 from "@/assets/vido2.jpg"
+
   export default {
     data () {
       return {
-        img1:img1,
-        img2:img2,
+        dialog:false,
         bottomNav: 'recents',
         refreshing:false,
         trigger: null,
+        data:[]
       }
     },
 
     mounted:function () {
-      this.trigger = document.getElementById("scoll");
+      this.refreshing = true;
+      this.getdata(301);
+
     },
     methods: {
       refresh:function () {
-        console.log("bbb");
         this.refreshing=true
+        if(this.bottomNav == "recents"){
+          this.getdata(301);
+        }
+        if(this.bottomNav == "favorites"){
+          this.getdata(302);
+        }
+        if(this.bottomNav == "nearby"){
+          this.getdata(303);
+        }
+        if(this.bottomNav == "nex"){
+          this.getdata(304);
+        }
       },
       back:function () {
         this.$router.go(-1)
       },
+      getdata:function (type) {
+        let self = this;
+        var url =self.path+ "findKnowledge.json"+'?token='+self.token+"&fileLangType=1&type="+type;
+        console.log(url);
+        self.$http.get(url
+        ).then((response) => {
+          self.refreshing = false;
+          console.log(response);
 
-      toPlay:function () {
-        this.$router.push({ path: "videoPlay" });
+          self.trigger = document.getElementById("scoll");
+          self.data = response.data.dataInfo.listData;
+          if(response.data.statusCode != 0){
+            alert("暂无数据");
+            return 0
+          }
+        }, (response) => {
+          console.log('error');
+        });
+      },
+      toPlay:function (path,type) {
+        console.log(type);
+        if(type!='mp4' && type!='mov'){
+          this.dialog = true
+          return 0
+        }
+        var url= 'http://video.sunwoda.com/'+path+'.'+type;
+        this.$router.push({ path: "videoPlay",query: {url:url} });
       },
       handleChange (val) {
-        this.bottomNav = val
+        this.bottomNav = val;
+        this.data = [];
+        this.refreshing=true
+        if(val == "recents"){
+          this.getdata(301);
+        }
+        if(val == "favorites"){
+          this.getdata(302);
+        }
+        if(val == "nearby"){
+          this.getdata(303);
+        }
+        if(val == "nex"){
+          this.getdata(304);
+        }
       }
     }
   }

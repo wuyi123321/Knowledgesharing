@@ -31,11 +31,6 @@
     <div class="header">
     <mu-appbar title="图片展示" style="text-align: center">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-      <mu-icon-menu icon="more_vert" slot="right">
-        <mu-menu-item title="添加设备"/>
-        <mu-menu-item title="查询设备"/>
-        <mu-menu-item title="扫一扫"/>
-      </mu-icon-menu>
     </mu-appbar>
     </div>
 
@@ -43,27 +38,25 @@
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <div class="gridlist-demo-container">
       <mu-grid-list class="gridlist-demo">
-        <mu-sub-header>电池图片</mu-sub-header>
-
-        <mu-grid-tile v-for="tile, index in list" :key="index"  >
-          <img :src="tile.image" @click="showBig(tile.image)"/>
-          <span slot="title">{{tile.title}}</span>
-          <span slot="subTitle">by <b>{{tile.author}}</b></span>
+        <mu-sub-header>公司形象照片</mu-sub-header>
+        <mu-grid-tile v-for="tile, index in data" :key="index"   v-if="tile.type=='401'">
+          <img :src="'http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType" @click="showBig('http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType)"/>
+          <span slot="title">{{tile.fileName}}</span>
+          <span slot="subTitle"><b>{{tile.fUpdateDateStr}}</b></span>
           <mu-icon-button icon="star_border" slot="action"/>
         </mu-grid-tile>
       </mu-grid-list>
       <mu-grid-list class="gridlist-demo">
-        <mu-sub-header>汽车</mu-sub-header>
-        <mu-grid-tile v-for="tile, index in list" :key="index" >
-          <img :src="tile.image"/>
-          <span slot="title">{{tile.title}}</span>
-          <span slot="subTitle">by <b>{{tile.author}}</b></span>
+        <mu-sub-header>产品照片</mu-sub-header>
+        <mu-grid-tile v-for="tile, index in data" :key="index"  v-if="tile.type=='402'" >
+          <img :src="'http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType" @click="showBig('http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType)"/>
+          <span slot="title">{{tile.fileName}}</span>
+          <span slot="subTitle"><b>{{tile.fUpdateDateStr}}</b></span>
           <mu-icon-button icon="star_border" slot="action"/>
         </mu-grid-tile>
       </mu-grid-list>
     </div>
   </div>
-
     <bigImg v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></bigImg>
   </div>
 </template>
@@ -114,16 +107,38 @@
         refreshing:false,
         trigger:null,
         imgSrc:"",
-        showImg:false
+        showImg:false,
+        data:[]
       }
     },
     mounted:function () {
-      this.trigger = document.getElementById("scoll");
+      this.refreshing=true;
+      this.getdata(4)
     },
     methods: {
       refresh:function () {
-
-        this.refreshing=true
+        this.refreshing=true;
+        this.getdata(4)
+      },
+      getdata:function (type) {
+        let self = this;
+        var url =self.path+ "findKnowledge.json"+'?token='+self.token+"&fileLangType=1&type="+type;
+        console.log(url);
+        self.$http.get(url
+        ).then((response) => {
+          console.log(response);
+          self.trigger = document.getElementById("scoll");
+          self.refreshing=false;
+          if(response.data.dataInfo){
+            self.data = response.data.dataInfo.listData;
+          }
+          if(response.data.statusCode !=0){
+            alert("暂无数据");
+            return 0
+          }
+        }, (response) => {
+          console.log('error');
+        });
       },
       showBig:function (imgSrc) {
         console.log("aaa");

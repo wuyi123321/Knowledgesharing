@@ -17,6 +17,31 @@
  .mu-infinite-scroll{
    padding-bottom: 0;
  }
+ .forumItem{
+   padding-left: 12px;
+   padding-right: 12px;
+   padding-top: 10px;
+   padding-bottom: 5px;
+   font-size: 0.25rem;
+   border-bottom: solid 10px #eee;
+ }
+
+ .forumItem .title{
+   height: 30px;
+   display: flex;
+   align-items: center;
+ }
+ .forumItem .content{
+   padding-top: 5px;
+   padding-bottom: 10px;
+ }
+ .forumItem .title span{
+   padding-left: 15px;
+ }
+ .forumItem .bottom span{
+   color: #888;
+   padding-right: 10px;
+ }
 </style>
 <template>
   <div class="main">
@@ -28,7 +53,18 @@
     <div class="conter" id="scollL">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
       <div class="forumList">
-         <forumLall :listForum="listForum"></forumLall>
+        <div v-for="item in listForum" class="forumItem" @click="toItem(item.fdModelId,item.docSubject)">
+        <div class="title">
+          <mu-avatar slot="left" icon="assignment_ind" backgroundColor="#ddd" :size="30"/>
+          <span>{{item.fdPosterName}}</span>
+          <span style="color: #888">{{item.docCreateTimeStr}}</span>
+        </div>
+        <div class="content">
+          <span class="artitle" style="color: #009688;padding-right: 10px">{{item.docSubject}}</span>
+          {{item.docSummary}}
+          <!--<span style="color: #0000ff">详情>></span>-->
+        </div>
+        </div>
       </div>
       <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
     </div>
@@ -55,7 +91,6 @@ import forumLall from "@/components/page/forum/forumcom/forumLall"
     },
     mounted:function () {
       this.refreshing = true;
-      this.fdid  = this.$route.query.id;
       this.title = this.$route.query.name;
       this.pNo = this.$route.query.pNo;
       this.getdata(this.startPage);
@@ -78,14 +113,10 @@ import forumLall from "@/components/page/forum/forumcom/forumLall"
         }
       },
 
+
       getdata:function(page){
         let self = this;
-        var url;
-       if(self.fdid){
-          url =self.path+ 'findTopicList.json'+'?token='+self.token+"&pageSize=10&page="+page+"&fdPinked=2&fdForumId="+self.fdid;
-        }else {
-          url =self.path+ 'findTopicList.json'+'?token='+self.token+"&pageSize=10&page="+page+"&fdPinked=2&fdPosterId="+self.pNo;
-        }
+        var url =self.path+ 'findCollection.json'+'?token='+self.token+"&pageSize=10&page="+page+"&userNo="+self.pNo;
         console.log(url);
         self.$http.get(url
         ).then((response) => {
@@ -104,6 +135,10 @@ import forumLall from "@/components/page/forum/forumcom/forumLall"
           console.log('error');
         });
 
+      },
+      toItem:function(id,title){
+        let self = this;
+        this.$router.push({ path: "forumItem",query: {token:self.token,id:id,fdHitCount:0,title:title} });
       },
       back:function () {
         this.$router.go(-1)

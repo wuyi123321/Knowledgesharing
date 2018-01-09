@@ -10,10 +10,17 @@ import 'muse-ui/dist/muse-ui.css'
 import 'muse-ui/dist/theme-teal.css'
 import $ from 'jquery'
 import Velocity from 'velocity-animate'
+import userNo from '../static/ind/config'
 Vue.use(MuseUI);
 Vue.prototype.$http=axios
 Vue.config.productionTip = false
-Factclick.attach(document.body)
+Factclick.attach(document.body);
+Vue.prototype.path = "http://appinter.sunwoda.com/common/knowledgeSharing/"
+// Vue.prototype.path = "http://172.30.128.32:8080/swdAPP/common/knowledgeSharing/"
+console.log(window.location.toString().split("token=")[1]);
+Vue.prototype.token = window.location.toString().split("token=")[1];
+// Vue.prototype.token = "73938de85af7d0128e400b1988077ddd";
+Vue.prototype.userNo = userNo
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

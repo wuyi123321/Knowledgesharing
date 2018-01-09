@@ -41,10 +41,6 @@
     <header>
       <mu-appbar title="流程管理" style="text-align: center">
         <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-        <mu-icon-menu icon="more_vert" slot="right">
-          <mu-menu-item title="中文"/>
-          <mu-menu-item title="英文"/>
-        </mu-icon-menu>
       </mu-appbar>
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab value="tab1" title="新OA" style="color: #009688"/>
@@ -56,71 +52,10 @@
     <div id="ref">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
       <div v-if="activeTab === 'tab1'">
-        <mu-list>
-          <mu-sub-header>权限设定</mu-sub-header>
-          <mu-list-item title="Mike Li">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right" @click="download('yuedu.ppt')"/>
-          </mu-list-item>
-          <mu-list-item title="Maco Mai">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-list-item title="Alex Qin">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-list-item title="Allen Qun">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-list-item title="Myron Liu">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-        </mu-list>
-        <mu-divider/>
-        <mu-list>
-          <mu-sub-header>客户受众</mu-sub-header>
-          <mu-list-item title="Gaia Zhou">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-list-item title="Miller Wang">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-        </mu-list>
-        <mu-divider/>
+       <div style="height: 40px;border-bottom: solid 1px #eee;line-height: 40px;text-align: center">暂无数据</div>
       </div>
       <div v-if="activeTab === 'tab2'">
-        <mu-list>
-          <!--<mu-sub-header>政府受众</mu-sub-header>-->
-          <mu-list-item title="电池事业一部简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right" @click="download('yuedu.ppt')"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="信息中心简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="行政安全中心简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="东莞锂威简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="电池事业二部简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-        </mu-list>
+        <div style="height: 40px;line-height: 40px;text-align: center">暂无数据</div>
         <mu-divider/>
       </div>
     </div>

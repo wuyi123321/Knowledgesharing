@@ -55,40 +55,28 @@
     </header>
     <div id="ref">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
+      <mu-dialog :open="dialog" title="提示信息">
+        暂时不支持此格式在线预览
+        <mu-flat-button label="确定" slot="actions" primary @click="dialog=false"/>
+      </mu-dialog>
       <div v-if="activeTab === 'tab1'">
       <mu-list>
         <mu-sub-header>政府受众</mu-sub-header>
-        <mu-list-item title="Mike Li">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right" @click="download('yuedu.ppt')"/>
-        </mu-list-item>
-        <mu-list-item title="Maco Mai">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right"/>
-        </mu-list-item>
-        <mu-list-item title="Alex Qin">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right"/>
-        </mu-list-item>
-        <mu-list-item title="Allen Qun">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right"/>
-        </mu-list-item>
-        <mu-list-item title="Myron Liu">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right"/>
+        <mu-list-item  v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='1000'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+          <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+          <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+          <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
         </mu-list-item>
       </mu-list>
       <mu-divider/>
       <mu-list>
         <mu-sub-header>客户受众</mu-sub-header>
-        <mu-list-item title="Gaia Zhou">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right"/>
-        </mu-list-item>
-        <mu-list-item title="Miller Wang">
-          <mu-avatar :src="imgP" slot="leftAvatar"/>
-          <mu-icon value="get_app" slot="right"/>
+        <mu-list-item  v-for="item in data" :title="item.fTitle" v-if="item.type=='1001'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+          <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+          <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+          <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
         </mu-list-item>
       </mu-list>
       <mu-divider/>
@@ -96,32 +84,17 @@
       <div v-if="activeTab === 'tab2'">
         <mu-list>
           <!--<mu-sub-header>政府受众</mu-sub-header>-->
-          <mu-list-item title="电池事业一部简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right" @click="download('yuedu.ppt')"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="信息中心简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="行政安全中心简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="东莞锂威简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
-          <mu-divider/>
-          <mu-list-item title="电池事业二部简介">
-            <mu-avatar :src="imgP" slot="leftAvatar"/>
-            <mu-icon value="get_app" slot="right"/>
-          </mu-list-item>
+          <div v-for="item in data" v-if="item.type!='1000' && item.type!='1001' " @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item  :title="item.fTitle" :describeText="item.fileName" >
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+            <mu-divider/>
+          </div>
         </mu-list>
-        <mu-divider/>
+
       </div>
     </div>
   </div>
@@ -129,34 +102,72 @@
 </template>
 <script>
   import w from "@/assets/icon/w.jpg"
+  import p from "@/assets/icon/p.jpg"
+  import s from "@/assets/icon/s.jpg"
+  import pdf from "@/assets/icon/pdf.png"
   export default {
-
     data () {
-
       return {
-        imgP:w,
+        imgP:p,
+        imgW:w,
+        imgS:s,
+        imgPdf:pdf,
+        dialog:false,
         refreshing:false,
         trigger: null,
-        activeTab: 'tab1'
+        activeTab: 'tab1',
+        data:[]
       }
     },
     mounted:function () {
-      this.trigger = document.getElementById("ref");
-      this.scroller = document.getElementById("ref");
+      this.refreshing=true;
+      this.getdata(1);
     },
     methods:{
       back:function () {
         this.$router.go(-1)
       },
       refresh:function () {
-        console.log("bbb");
-        this.refreshing=true
+        this.refreshing=true;
+        this.data = [];
+        this.getdata(1);
       },
+      getdata:function (type) {
+        let self = this;
+        var url =self.path+ "findKnowledge.json"+'?token='+self.token+"&fileLangType=1&type="+type;
+        console.log(url);
+        self.$http.get(url
+        ).then((response) => {
+          console.log(response);
+          self.refreshing=false;
+          self.trigger = document.getElementById("ref");
+          if(response.data.dataInfo){
+            self.data = response.data.dataInfo.listData;
+          }
+          if(response.data.statusCode !=0){
+            alert("暂无数据");
+            return 0
+          }
+        }, (response) => {
+          console.log('error');
+        });
+      },
+
       handleTabChange (val) {
         this.activeTab = val
       },
-      download:function (url) {
-        console.log(url)
+      showPdf:function (type,path,title) {
+        console.log(type);
+        var url = 'https://video.sunwoda.com/'+path+'.'+type;
+        if(type=='pdf'){
+          this.$router.push({ path: "pdfRead",query: {url:url,title:title} });
+        }else {
+          this.dialog = true;
+        }
+      },
+      download:function (url,name) {
+        console.log(url);
+        window.location.href = this.path+"downloadFile.json"+"?token="+this.token+"&fFileUrl=http://video.sunwoda.com/"+url+"&fileName="+name
       }
 
     }

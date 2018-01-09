@@ -79,10 +79,24 @@
       }
     },
     mounted:function () {
+      let self = this;
+      console.log(this);
+      var url ='http://appinter.sunwoda.com/common/getPersonalInfo.json?token='+self.token;
+      console.log(url);
+      self.$http.get(url).then((response) => {
+        console.log(response);
+         if(response.data.statusCode ==0){
+           self.userNo.setMess(response.data.dataInfo.singleData.userNo);
+           console.log(self.userNo);
+         }
+      }, (response) => {
+        console.log('error');
+      });
     },
     methods:{
       hrefTo:function (link) {
-        this.$router.push({ path: link })
+        let self = this;
+        this.$router.push({ path: link,query: {token:self.token} })
       }
     }
   }

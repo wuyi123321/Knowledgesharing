@@ -17,6 +17,7 @@ import forumcard from '@/components/page/forum/children/card'
 import forumcount from '@/components/page/forum/children/count'
 import forumItem from '@/components/page/forum/forumItem'
 import forumIist from '@/components/page/forum/forumIist'
+import collection from '@/components/page/forum/collection'
 Vue.use(Router);
 
 export default new Router({
@@ -40,6 +41,7 @@ export default new Router({
       {path: '/forumcard',component: forumcard},
       {path: '/forumcount',component: forumcount},
     ]},
+    {path: '/collection',component: collection},
     {path: '/forumItem',component: forumItem},
     {path: '/forumIist',component: forumIist},
     {path: '/videoPlay',component: videoPlay},

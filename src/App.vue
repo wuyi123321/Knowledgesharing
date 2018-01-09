@@ -17,11 +17,31 @@
     -webkit-transform: translate(-300px, 0);
     transform: translate(-300px, 0);
   }
+  .loading{
+   position: fixed;
+    background-color: rgba(0,0,0,0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    font-size: 0.3rem;
+  }
 </style>
 <template>
-  <transition :name="transitionName">
-    <router-view class="child-view"></router-view>
-  </transition>
+  <div>
+      <transition :name="transitionName">
+        <router-view class="child-view"></router-view>
+      </transition>
+      <div class="loading" v-show="userNo.loading">
+        <mu-circular-progress :size="40"/>
+        <div style="padding-top: 10px">加载中...</div>
+      </div>
+  </div>
 </template>
 <script>
   export default {

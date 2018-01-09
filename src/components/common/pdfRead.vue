@@ -48,11 +48,6 @@
     <div class="header" id="pdf">
           <mu-appbar :title="pdfMess.name" style="text-align: center">
             <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-            <mu-icon-menu icon="more_vert" slot="right">
-              <mu-menu-item title="添加设备" />
-              <mu-menu-item title="查询设备"/>
-              <mu-menu-item title="扫一扫"/>
-            </mu-icon-menu>
           </mu-appbar>
     </div>
     <div id="scoll">
@@ -83,6 +78,9 @@
     },
     mounted:function () {
       var vm =this;
+//      vm.pdfMess.path = this.$route.query.url;
+      vm.pdfMess.name = this.$route.query.title;
+      console.log(this.$route.query.url);
       var ifem = document.getElementById("iframe");
       ifem.onload=function(){
         vm.loading = false;
