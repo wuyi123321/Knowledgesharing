@@ -39,8 +39,8 @@
 <template>
   <div class="main">
     <div class="header">
-    <mu-appbar title="OA论坛" style="text-align: center">
-      <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+    <mu-appbar title="知识共享社群" style="text-align: center">
+      <!--<mu-icon-button icon="navigate_before" slot="left" @click="back"/>-->
     </mu-appbar>
     </div>
     <div class="conter" id="scoll">
@@ -72,12 +72,13 @@
     </div>
     <div class="footer">
         <mu-bottom-nav :value="bottomNav" @change="handleChange">
-          <mu-bottom-nav-item value="forumcount" title="论坛" icon="perm_camera_mic"/>
-          <mu-bottom-nav-item value="forumcard" title="帖子" icon="assignment"/>
+          <mu-bottom-nav-item value="forummessage" title="智库" icon="collections_bookmark"/>
+          <mu-bottom-nav-item value="forumcount" title="论坛" icon="group"/>
+
           <div class="mu-buttom-item" style="display: flex; flex-direction: column;justify-content:center;align-items: center;" @click="addForums">
            <mu-icon  :value="addicon" style="padding-right: 8px;padding-left: 8px;padding-top: 3px;padding-bottom: 3px;background-color:#009688;border-radius: 5px;color: #fff"/>
           </div>
-            <mu-bottom-nav-item value="forummessage" title="精华" icon="email"/>
+          <mu-bottom-nav-item value="forumcard" title="发现" icon="explore"/>
           <mu-bottom-nav-item value="myforum" title="我的" icon="perm_identity"/>
         </mu-bottom-nav>
     </div>

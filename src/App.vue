@@ -55,14 +55,14 @@
     //监听路由的路径，可以通过不同的路径去选择不同的切换效果
     watch: {
       '$route' (to, from) {
-        if(to.path == '/index'){
+        if(to.path == '/forummessage'){
           this.transitionName = 'slide-right';
         }
         else if(to.path == '/forumItem'){
           this.transitionName = 'slide-left';
           return 0
         }
-        else if(from.path == '/pdfRead' || from.path == '/forumIist' || from.path == '/forumItem' || from.path == '/videoPlay'){
+        else if(from.path == '/pdfRead' || from.path == '/forumIist' || from.path == '/forumItem' || from.path == '/videoPlay' || from.path == '/collection'){
           this.transitionName = 'slide-right';
         }
 //        else if(from.path == '/videoPlay'){

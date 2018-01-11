@@ -38,7 +38,7 @@
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <div class="gridlist-demo-container">
       <mu-grid-list class="gridlist-demo">
-        <mu-sub-header>公司形象照片</mu-sub-header>
+        <mu-sub-header>公司形象图片</mu-sub-header>
         <mu-grid-tile v-for="tile, index in data" :key="index"   v-if="tile.type=='401'">
           <img :src="'http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType" @click="showBig('http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType)"/>
           <span slot="title">{{tile.fileName}}</span>
@@ -47,7 +47,7 @@
         </mu-grid-tile>
       </mu-grid-list>
       <mu-grid-list class="gridlist-demo">
-        <mu-sub-header>产品照片</mu-sub-header>
+        <mu-sub-header>产品图片</mu-sub-header>
         <mu-grid-tile v-for="tile, index in data" :key="index"  v-if="tile.type=='402'" >
           <img :src="'http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType" @click="showBig('http://video.sunwoda.com/'+tile.fileUrl+'.'+tile.fileType)"/>
           <span slot="title">{{tile.fileName}}</span>

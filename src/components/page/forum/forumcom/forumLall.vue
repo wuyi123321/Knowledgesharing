@@ -44,7 +44,7 @@
             <!--<span>收藏50</span>-->
           </div>
         </div>
-        <mu-divider/>
+
     </div>
   </div>
 </template>

@@ -87,7 +87,7 @@
         console.log(pNo);
         var self = this;
         var name = this.personmess.fdName+"的帖子";
-        this.$router.push({ path: "forumIist",query: {token:self.token,name:name,pNo:pNo,isCon:isCon} });
+        this.$router.push({ path: "forumIist",query: {token:self.token,name:name,pNo:pNo} });
       },
       goMyColl:function (pNo) {
         console.log(pNo);

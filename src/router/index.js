@@ -24,7 +24,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index',
+      redirect: '/forum',
     },
     {path: '/index', component: index,},
     { path: '/CompanyProfile',component:companyprofile, meta: { keepAlive: true }},
@@ -35,7 +35,7 @@ export default new Router({
     {path: '/PresidentSpeech',component: presidentspeech},
     {path: '/ProcessManagement',component: processmanagement},
     {path: '/forum',component: forum,children:[
-      {path: '/', redirect: '/forumcount',},
+      {path: '/', redirect: '/forummessage',},
       {path: '/myforum',component: myforum},
       {path: '/forummessage',component: forummessage},
       {path: '/forumcard',component: forumcard},

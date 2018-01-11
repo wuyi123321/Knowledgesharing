@@ -6,6 +6,10 @@
   .header{
     height: 56px;
   }
+ .footer{
+   box-sizing: border-box;
+   border-top: solid 1px #eee;
+ }
   .conter{
     width: 100%;
     flex: 1;
@@ -14,10 +18,7 @@
     position: relative;
     user-select: none;
   }
-  .footer{
-    border-top: solid 1px #eee;
-    height: 56px;
-  }
+
  .vidoItem{
    margin-bottom: 10px;
    width: 100%;
@@ -54,6 +55,7 @@
     justify-content: center;
     align-items: center;
     color: #fff;
+    font-size: 0.18rem;
   }
  .vidoTime{
    position: absolute;
@@ -63,6 +65,43 @@
    color: #fff;
    padding: 3px;
    border-radius: 8px;
+ }
+
+  .videoit{
+    margin-top:3px;
+    display: flex;
+    margin-bottom: 10px;
+    padding-left: 15px;
+  }
+ .videoit .left{
+   width: 35vw;
+   height: 90px;
+   background-color: #eee;
+   border-radius: 5px;
+   overflow: hidden;
+   position: relative;
+
+ }
+ .videoit .left span{
+   position: absolute;
+   bottom: 5px;
+   right: 5px;
+   background-color: #555555;
+   padding-top: 2px;
+   padding-bottom: 2px;
+   padding-left: 5px;
+   padding-right: 5px;
+   font-size: 0.2rem;
+   color: #fff;
+   border-radius: 5px;
+ }
+ .videoit .right{
+   flex:1;
+   display: flex;
+   flex-direction: column;
+ }
+ .videoit .right>div{
+   color: #757575;
  }
 </style>
 <template>
@@ -74,19 +113,34 @@
     </div>
     <div class="conter" id="scoll">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
-          <div class="vidoItem"  v-for="item in data" @click="toPlay(item.fileUrl,item.fileType)" >
-            <div class="videobox" style="position: absolute;top: 0;left: 0" >
-              <video id="mainvideo"  width="100%" height="100%"  :src="'http://video.sunwoda.com/'+item.fileUrl+'.'+item.fileType" ></video>
+          <div class="videoit" v-for="item in data" @click="toPlay(item.fileUrl,item.fileType)" >
+            <div class="left">
+              <video id="mainvideo"   height="100%"  :src="'http://video.sunwoda.com/'+item.fileUrl+'.'+item.fileType" ></video>
+              <span>{{item.fdVideoLength}}</span>
+              <div class="vidoPlay">
+                  <mu-icon value="arrow_right" :size="48"/>
+              </div>
             </div>
-            <div class="vidoTitle">{{item.fileName}}</div>
-            <!--<img :src="img1" width="100%" height="100%">-->
-            <div class="vidoPlay">
-              <mu-icon value="arrow_right" :size="48"/>
-            </div>
-            <div class="vidoTime">
-              {{item.fdVideoLength}}
+            <div class="right" style="margin-left: 15px">
+              <div style="height: 50%;font-size: 0.28rem;color: #000">{{item.fileName}}</div>
+              <div>文件大小:{{item.fileSize}}</div>
+              <div>上传时间:{{item.fUpdateDateStr}}</div>
+
             </div>
           </div>
+          <!--<div class="vidoItem"  v-for="item in data" @click="toPlay(item.fileUrl,item.fileType)" >-->
+            <!--<div class="videobox" style="position: absolute;top: 0;left: 0" >-->
+              <!--<video id="mainvideo"  width="100%" height="100%"  :src="'http://video.sunwoda.com/'+item.fileUrl+'.'+item.fileType" ></video>-->
+            <!--</div>-->
+            <!--<div class="vidoTitle">{{item.fileName}}</div>-->
+            <!--&lt;!&ndash;<img :src="img1" width="100%" height="100%">&ndash;&gt;-->
+            <!--<div class="vidoPlay">-->
+              <!--<mu-icon value="arrow_right" :size="48"/>-->
+            <!--</div>-->
+            <!--<div class="vidoTime">-->
+              <!--{{item.fdVideoLength}}-->
+            <!--</div>-->
+          <!--</div>-->
       <mu-dialog :open="dialog" title="提示信息">
         格式不支持在线播放，请在OA论坛模块观看
         <mu-flat-button label="确定" slot="actions" primary @click="dialog=false"/>
@@ -99,7 +153,6 @@
           <mu-bottom-nav-item value="nearby" title="校招类" icon="school"/>
           <mu-bottom-nav-item value="nex" title="团队纪念" icon="group"/>
         </mu-bottom-nav>
-
     </div>
   </div>
 </template>

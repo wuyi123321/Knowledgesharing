@@ -58,7 +58,9 @@
       <div v-if="activeTab === 'tab1'">
         <mu-list>
           <mu-sub-header>部门培训课件</mu-sub-header>
-          <mu-list-item v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='510'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-list-item v-for="item in data" :title="item.fTitle" :describeText="item.fileName"
+                         v-if="item.type=='510' || item.type=='512' || item.type=='513' || item.type=='514' || item.type=='515' || item.type=='516' || item.type=='517' || item.type=='518' || item.type=='519' || item.type=='520'"
+                        @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
             <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -67,7 +69,7 @@
         </mu-list>
         <mu-divider/>
         <mu-list>
-          <mu-sub-header>通用类培训课件</mu-sub-header>
+          <mu-sub-header>通识类培训课件</mu-sub-header>
           <mu-list-item v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='511'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -79,7 +81,8 @@
       </div>
       <div v-if="activeTab === 'tab2'">
         <mu-list>
-          <div v-for="item in data" v-if="item.type!='511' && item.type!='510'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-sub-header>外训课件</mu-sub-header>
+          <div v-for="item in data" v-if="item.type=='501'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
           <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -87,6 +90,42 @@
             <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
           </mu-list-item>
           <mu-divider/>
+          </div>
+        </mu-list>
+        <mu-list>
+          <mu-sub-header>外出峰会学习</mu-sub-header>
+          <div v-for="item in data" v-if="item.type=='502'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+            <mu-divider/>
+          </div>
+        </mu-list>
+        <mu-list>
+          <mu-sub-header>外部研讨会、学习会</mu-sub-header>
+          <div v-for="item in data" v-if="item.type=='503'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+            <mu-divider/>
+          </div>
+        </mu-list>
+        <mu-list>
+          <mu-sub-header>外部深造课件</mu-sub-header>
+          <div v-for="item in data" v-if="item.type=='504'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+            <mu-divider/>
           </div>
         </mu-list>
 

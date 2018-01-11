@@ -158,7 +158,7 @@
       },
       showPdf:function (type,path,title) {
         console.log(type);
-        var url = 'https://video.sunwoda.com/'+path+'.'+type;
+        var url =   'https://video.sunwoda.com/'+path+'.'+type;
         if(type=='pdf'){
           this.$router.push({ path: "pdfRead",query: {url:url,title:title} });
         }else {

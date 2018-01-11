@@ -48,7 +48,7 @@
         </mu-list>
         <mu-divider/>
         <mu-list>
-          <mu-sub-header>转正类PPT模板</mu-sub-header>
+          <mu-sub-header>HR类PPT模板</mu-sub-header>
           <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='203'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
             <mu-avatar :src="imgP" slot="leftAvatar"/>
             <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>

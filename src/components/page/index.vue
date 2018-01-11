@@ -26,7 +26,7 @@
 </style>
 <template>
   <div class="zhuye">
-    <mu-appbar title="知识共享库" style="text-align: center">
+    <mu-appbar title="知识共享社群" style="text-align: center">
     </mu-appbar>
     <div class="line_demo">
       <div class="flex-demo" @click="hrefTo('CompanyProfile')">
@@ -58,8 +58,8 @@
     </div>
     <div class="line_demo">
       <div class="flex-demo" @click="hrefTo('ProcessManagement')">
-        <mu-icon value="settings" :size="30" color="#009688"/>
-        <span class="demo_name">流程管理</span>
+        <mu-icon value="assignment" :size="30" color="#009688"/>
+        <span class="demo_name">阅读</span>
       </div>
       <div class="flex-demo" @click="hrefTo('forum')">
         <mu-icon value="group" :size="30" color="#009688"/>

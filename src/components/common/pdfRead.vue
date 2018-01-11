@@ -72,13 +72,13 @@
             name:"sunwoda周会总结",
             path:"https://appinter.sunwoda.com/img/activity/SUNWODA_HRM%E5%AE%9E%E6%96%BD%E9%A1%B9%E7%9B%AE-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.pdf"
           },
-        url:"http://mozilla.github.io/pdf.js/web/viewer.html?file=",
+        url:"https://mozilla.github.io/pdf.js/web/viewer.html?file=",
         loading:true,
       }
     },
     mounted:function () {
       var vm =this;
-//      vm.pdfMess.path = this.$route.query.url;
+     vm.pdfMess.path = this.$route.query.url;
       vm.pdfMess.name = this.$route.query.title;
       console.log(this.$route.query.url);
       var ifem = document.getElementById("iframe");
