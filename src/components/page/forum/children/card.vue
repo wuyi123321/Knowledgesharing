@@ -107,6 +107,9 @@
         }
       },
       changeText:function (text) {
+        console.log("aaaa")
+        console.log(text);
+        console.log(this.searchText);
         if(text==""){
           this.getdata(1);
         }

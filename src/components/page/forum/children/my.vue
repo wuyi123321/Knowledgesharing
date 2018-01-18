@@ -93,7 +93,7 @@
         console.log(pNo);
         var self = this;
         var name = this.personmess.fdName+"的收藏";
-        this.$router.push({ path: "collection",query: {token:self.token,name:name,pNo:pNo} });
+        this.$router.push({ path: "collection",query: {name:name,pNo:pNo,token:self.token} });
       },
       getPno:function () {
         let self = this;

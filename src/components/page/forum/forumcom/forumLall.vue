@@ -27,6 +27,10 @@
 </style>
 <template>
   <div class="main">
+
+    <div v-if="listForum.length==0" style="height: 50px;border-bottom: solid 1px #eee;text-align: center;line-height: 50px">
+      暂无帖子
+    </div>
     <div  v-for="item in listForum"  @click="toforumItem(item.fdId,item.fdHitCount,item.docSubject)">
         <div class="forumItem">
            <div class="title">
@@ -64,7 +68,8 @@
     methods: {
       toforumItem:function (id,fdHitCount,title) {
         let self = this;
-        this.$router.push({ path: "forumItem",query: {token:self.token,id:id,fdHitCount:fdHitCount,title:title} });
+
+        this.$router.push({ path: "forumItem",query: {id:id,fdHitCount:fdHitCount,title:title,token:self.token} });
       }
     }
   }

@@ -15,100 +15,99 @@
     position: relative;
     user-select: none;
   }
+  .titleclass{
+    border-bottom: solid 1px #eee;
+  }
+  .Tclass{
+    background-color: #eee;
+  }
 </style>
 
 <template>
   <div class="main">
     <div class="header">
-      <mu-appbar title="总裁致辞" style="text-align: center">
+      <mu-appbar title="管理者思想集" style="text-align: center">
         <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+        <mu-icon-button icon="aaa" slot="right"/>
       </mu-appbar>
     </div>
     <div id="scoll">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
       <mu-dialog :open="dialog" title="提示信息">
         暂时不支持此格式在线预览
+
         <mu-flat-button label="确定" slot="actions" primary @click="dialog=false"/>
       </mu-dialog>
       <mu-list>
 
-        <mu-list-item title="对外演讲" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='601'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+        <mu-list-item title="对外致辞" toggleNested :open="false">
+          <mu-list-item slot="nested" title="面向客户"  titleClass="Tclass" nestedListClass="titleclass" toggleNested :open="false"  style="background-color:#eee;border-bottom: solid #fff 1px">
+            <mu-list-item slot="nested" v-for="item in data" style="background-color: #fff;border-bottom: solid 1px #eee" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='605'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
           </mu-list-item>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
-      <mu-list>
-        <mu-list-item title="内部讲话" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='602'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+
+          <mu-list-item slot="nested" title="面向学校"  style="background-color:#eee;border-bottom: solid #fff 1px" toggleNested :open="false">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee"  :describeText="item.fileName" v-if="item.type=='606'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
           </mu-list-item>
+
+          <mu-list-item slot="nested" title="面向政府"  style="background-color:#eee;border-bottom: solid #fff 1px" toggleNested :open="false">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee"  :describeText="item.fileName" v-if="item.type=='607'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+
+            </mu-list-item>
+          </mu-list-item>
+
+
+          <mu-list-item slot="nested" title="面向商会"  style="background-color:#eee;border-bottom: solid #fff 1px" toggleNested :open="false">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee" :describeText="item.fileName" v-if="item.type=='608'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+
+            </mu-list-item>
+          </mu-list-item>
+
         </mu-list-item>
 
       </mu-list>
       <mu-divider/>
       <mu-list>
-        <mu-list-item title="管理者思想汇集" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='603'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+        <mu-list-item title="内部讲话" toggleNested :open="false">
+
+          <mu-list-item slot="nested" title="节日致辞" toggleNested :open="false" style="background-color:#eee;border-bottom: solid #fff 1px">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" style="background-color: #fff;border-bottom: solid 1px #eee" v-if="item.type=='604'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+          </mu-list-item>
+          <mu-list-item slot="nested" title="会议讲话" toggleNested :open="false" style="background-color:#eee;border-bottom: solid #fff 1px">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" style="background-color: #fff;border-bottom: solid 1px #eee" v-if="item.type=='602'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
           </mu-list-item>
         </mu-list-item>
+
       </mu-list>
       <mu-divider/>
-      <mu-list>
-        <mu-list-item title="节日致辞" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='604'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
-          </mu-list-item>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
-      <mu-list>
-        <mu-list-item title="面向客户" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='605'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
-          </mu-list-item>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
-      <mu-list>
-        <mu-list-item title="面向学校" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='606'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
-          </mu-list-item>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
-      <mu-list>
-        <mu-list-item title="面向政府" toggleNested :open="false">
-          <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='607'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-            <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-            <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-            <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-            <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
-          </mu-list-item>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
+
     </div>
   </div>
 </template>

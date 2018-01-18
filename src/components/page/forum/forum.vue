@@ -1,5 +1,6 @@
 <style scoped>
  .main{
+   overflow-x: ;
    display: flex;
    flex-direction: column;
  }
@@ -14,7 +15,6 @@
     position: relative;
     user-select: none;
   }
-
   .footer{
     border-top: solid 1px #eee;
     height: 57px;
@@ -39,28 +39,26 @@
 <template>
   <div class="main">
     <div class="header">
-    <mu-appbar title="知识共享社群" style="text-align: center">
-      <!--<mu-icon-button icon="navigate_before" slot="left" @click="back"/>-->
+    <mu-appbar title="知识共享社区" style="text-align: center">
+      <mu-icon-button icon="navigate_before" slot="left" @click="closePage"/>
+      <mu-icon-button icon="aaa" slot="right"  />
     </mu-appbar>
     </div>
     <div class="conter" id="scoll">
-
+      <!--<div class=></div>-->
       <mu-toast v-if="toast" :message="toastMess" @close="hideToast"/>
       <router-view :data="data" style="height: 100%"></router-view>
       <div v-show="addForum" class="addforum">
-
         <div style="color: #9e9e9e">
           选择模块
         </div>
-        <div style="display: flex" v-if="data.dataInfo.listData">
-        <mu-select-field v-model="game1" :labelFocusClass="['label-foucs']"  @change="changemodel">
-          <mu-menu-item v-for="text,index in data.dataInfo.listData" :key="index" :value="index" :title="text.fdName" />
+        <div style="display: flex">
+        <mu-select-field v-model="game1"   @change="changemodel">
+          <mu-menu-item v-for="text,index in data" :key="index"  :value="index" :title="text.fdName" />
         </mu-select-field>
-
          <span style="width: 20px;height:36px;display: flex;justify-content: center;align-items: center">
          ——
          </span>
-
         <mu-select-field v-model="game2" :labelFocusClass="['label-foucs']" style="padding-left: 5px">
           <mu-menu-item v-for="text,index in list" :key="index" :value="text.fdId" :title="text.fdName" />
         </mu-select-field>
@@ -74,7 +72,6 @@
         <mu-bottom-nav :value="bottomNav" @change="handleChange">
           <mu-bottom-nav-item value="forummessage" title="智库" icon="collections_bookmark"/>
           <mu-bottom-nav-item value="forumcount" title="论坛" icon="group"/>
-
           <div class="mu-buttom-item" style="display: flex; flex-direction: column;justify-content:center;align-items: center;" @click="addForums">
            <mu-icon  :value="addicon" style="padding-right: 8px;padding-left: 8px;padding-top: 3px;padding-bottom: 3px;background-color:#009688;border-radius: 5px;color: #fff"/>
           </div>
@@ -86,7 +83,6 @@
 </template>
 <script>
 
-
   export default {
     data () {
       return {
@@ -94,17 +90,16 @@
         toast:false,
         fourmTitle:"",
         fourmContent:"",
-        game1: 0,//模块的信息
+        game1: 1,//模块的信息
         game2:"",//子模块信息
         list: [],//子模块内容数组
         bottomNav: 'forumcount',//默认底下路由
         addicon:"add",//中间图标信息
         addForum:false,//添加模块显示
-        data:{}
+        data:[]
       }
     },
     mounted:function () {
-
       console.log(this.$router);
       //根据路由判断底下标签
       var a =this.$router.history.current.path;
@@ -112,15 +107,31 @@
       console.log(b);
       this.bottomNav = b;
       this.getdata("findCategory.json");
+
     },
 
     methods: {
-
       showToast (mess) {
         this.toastMess = mess;
         this.toast = true;
         if (this.toastTimer) clearTimeout(this.toastTimer)
         this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
+      },
+      closePage:function () {
+        console.log("aaa");
+        this.setupWebViewJavascriptBridge(function(bridge) {
+            bridge.callHandler('popViewWithJsCall');
+        });
+      },
+      setupWebViewJavascriptBridge:function(callback) {
+        if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+        if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
       },
       hideToast () {
         this.toast = false
@@ -130,10 +141,7 @@
       changemodel:function (val) {
         console.log(val);
         this.game2 = "";
-        this.list = this.data.dataInfo.listData[val].cList
-      },
-      back:function () {
-        this.$router.go(-1)
+        this.list = this.data[val].cList
       },
 //    添加帖子按钮 添加组建的出现和隐藏
       addForums:function () {
@@ -146,15 +154,14 @@
           this.addicon ="remove";
           this.addForum = true;
           Velocity($(".addforum"), "slideDown",{duration:300});
-          this.list = this.data.dataInfo.listData[this.game1].cList
+          this.game1 = 0;
+          this.list = this.data[this.game1].cList;
+          console.log(this.data[this.game1]);
         }
       },
 //      帖子提交事件
       subForum:function () {
          var self = this;
-         console.log(this.game2);
-         console.log(this.fourmTitle);
-         console.log(this.fourmContent);
         var pram = {
           token:self.token,
           docSubject:self.fourmTitle,
@@ -186,7 +193,6 @@
 //      获取初始数据/论坛的板块信息
       getdata:function(path){
         let self = this;
-
         var url =self.path+ path+'?token='+self.token;
         console.log(url);
         self.$http.get(url
@@ -196,8 +202,7 @@
             alert("暂无数据");
             return 0
           }
-          self.data = response.data;
-
+          self.data = response.data.dataInfo.listData;
         }, (response) => {
           console.log('error');
         });
@@ -206,6 +211,9 @@
       handleChange (val) {
         let self = this;
         this.bottomNav = val;
+        if(this.addForum ==true){
+          this.addForums();
+        }
         this.$router.replace({ path: val+'?token='+self.token});
 
       }

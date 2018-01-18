@@ -31,6 +31,7 @@
     <div class="header">
     <mu-appbar title="图片展示" style="text-align: center">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+      <mu-icon-button icon="aaa" slot="right"/>
     </mu-appbar>
     </div>
 
@@ -61,13 +62,6 @@
   </div>
 </template>
 <script>
-  import img1 from "@/assets/gallery/1.jpg"
-  import img2 from "@/assets/gallery/2.jpg"
-  import img4 from "@/assets/gallery/4.jpg"
-  import img5 from "@/assets/gallery/5.jpg"
-  import img6 from "@/assets/gallery/6.jpg"
-  import img7 from "@/assets/gallery/7.jpg"
-  import img8 from "@/assets/gallery/8.jpg"
   import bigImg from '@/components/common/bigImg.vue';
   export default {
     data () {

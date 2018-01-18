@@ -109,6 +109,7 @@
     <div class="header">
         <mu-appbar title="欣旺达视频" style="text-align: center">
           <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+          <mu-icon-button icon="aaa" slot="right"/>
         </mu-appbar>
     </div>
     <div class="conter" id="scoll">

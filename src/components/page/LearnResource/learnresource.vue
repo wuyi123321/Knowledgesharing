@@ -41,6 +41,7 @@
     <header>
       <mu-appbar title="学习资料" style="text-align: center">
         <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+        <mu-icon-button icon="aaa" slot="right"/>
       </mu-appbar>
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab value="tab1" title="内部资料" style="color: #009688"/>

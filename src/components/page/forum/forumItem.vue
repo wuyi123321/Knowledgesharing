@@ -74,6 +74,7 @@
    padding-left: 12px;
    padding-right: 12px;
    padding-top: 10px;
+   padding-bottom: 10px;
  }
  .comment .comtitle{
    font-size: 0.28rem;
@@ -133,7 +134,7 @@
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
     </mu-appbar>
     </div>
-    <mu-dialog :open="dialog" title="删除评论"  @close="close">
+    <mu-dialog :open="dialog" title="删除评论"  @close="dialog=false">
       您确定删除该条评论吗？
       <mu-flat-button slot="actions" @click="dialog=false" primary label="取消"/>
       <mu-flat-button slot="actions" primary @click="deleteItem" label="确定"/>
@@ -147,7 +148,7 @@
               <div class="title">
                 <span style="color: #009688;padding-right: 10px">{{card.fdName}}</span>
                 {{card.docSubject}}</div>
-              <div class="tidis">{{card.docAlterTimeStr}} 阅读：{{fdHitCount}} 收藏：{{card.fdCollectionCount}} </div>
+              <div class="tidis">{{card.docAlterTimeStr}} 阅读：{{card.fdHitCount}} 收藏：{{card.fdCollectionCount}} </div>
             </div>
           </div>
           <div class="content" v-html="card.docContent">
@@ -157,7 +158,6 @@
             <span>{{i.fdFileName}}</span>
           </div>
           <div class="bottom">
-
             <div @click="thumbUp(card.fdId,0)"><mu-icon value="thumb_up"/>{{card.docApproveCount}}</div>
             <div @click="addCollection(card.fdId,card.docSubject)" v-if="card.fdCollectionCountByUser ==0">
               <mu-icon value="favorite"/>{{card.fdCollectionCount}}
@@ -178,7 +178,7 @@
           <mu-text-field label="添加回复" :hintText="retap" v-model="recont"/>
         </mu-content-block>
       </mu-popup>
-      <div class="comment">
+      <div class="comment" id="comment">
               <div class="comtitle">评论（{{comments.length}}）</div>
               <div class="com_item" v-for="(item,n) in comments">
                       <div class="com_itemtop">
@@ -194,11 +194,11 @@
                         {{item.docSummary}}
                       </div>
                 <div class="bottom">
-                  <div><mu-icon value="remove_circle_outline" @click="openDel(item.fdId,n)"/></div>
+                  <div><mu-icon value="remove_circle_outline" @click="openDel(item.fdId,n)" v-if="personNo==item.fdPosterId"/></div>
                   <div>
                     <mu-icon value="thumb_up" @click="thumbUp(item.fdId,n+1)"/>{{item.docApproveCount}}
                   </div>
-                  <div><mu-icon value="sms" @click="open(item.fdName,card.fdId,card.docSubject,item.fdId)"/></div>
+                  <div><mu-icon value="sms" @click="open(item.fdName,card.fdId,card.docSubject,item.fdId,item.docSummary)"/></div>
                 </div>
                 <mu-divider/>
               </div>
@@ -225,7 +225,10 @@
         reId:"",
         redocSubject:"",
         recont:"",
+        personNo:"",//我的OA号信息
         reto:"",//回复的类型0--回复主帖  id--回复id
+        retoName:"",//回复对象人  "" --回复主帖
+        pDocSummary:"",
         deleteT:{
           id:"",
           n:-1
@@ -238,14 +241,68 @@
 //      this.title = this.$route.query.title;
       this.refreshing = true;
       this.getData();
+      this.getPermess();
     },
     methods: {
-      open (item,reid,docSubject,reTo) {
+//item---回复人reid---回复id  docSubject---回复主题,reTo --- 回复类型,docSummary --- 回复信息
+      open (item,reid,docSubject,reTo,docSummary) {
         this.reto = reTo;
         this.retap = "回复"+item;
+        if(item == "主帖"){
+          this.retoName = "";
+        }else {
+          this.retoName = item;
+        }
+        this.pDocSummary = docSummary;
         this.reId = reid;
         this.redocSubject ="RE:"+docSubject
         this.bottomPopup  = true
+      },
+//      获取本人信息（核对是否能删除回复）
+      getPermess:function(){
+        let self = this;
+        if(self.userNo.userNo == ""){
+          var url ='http://appinter.sunwoda.com/common/getPersonalInfo.json?token='+self.token;
+          console.log(url);
+          self.$http.get(url).then((response) => {
+            console.log(response);
+            if(response.data.statusCode ==0){
+              self.userNo.setMess(response.data.dataInfo.singleData.userNo);
+              console.log(self.userNo);
+              var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+self.userNo.userNo;
+              console.log(url);
+              self.$http.get(url
+              ).then((response) => {
+                console.log(response);
+                self.personNo = response.data.dataInfo.listData[0].fdId
+                if(response.data.statusCode !=0){
+                  alert("暂无数据");
+                  return 0
+                }
+              }, (response) => {
+                console.log('error');
+              });
+            }
+          }, (response) => {
+            console.log('error');
+          });
+
+        }else {
+          var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+self.userNo.userNo;
+          console.log(url);
+          self.$http.get(url
+          ).then((response) => {
+            console.log(response);
+            self.personNo = response.data.dataInfo.listData[0].fdId
+            if(response.data.statusCode !=0){
+              alert("暂无数据");
+              return 0
+            }
+          }, (response) => {
+            console.log('error');
+          });
+        }
+
       },
       close (position) {
         this.bottomPopup = false
@@ -303,7 +360,11 @@
           if(response.data.statusCode == 0){
             self.bottomPopup = false;
             self.recont = "";
-            self.$router.go(0);
+//            self.$router.go(0);
+            response.data.dataInfo.listData[0].fdName = self.card.fdName;
+            response.data.dataInfo.listData[0].pName = self.retoName;
+            response.data.dataInfo.listData[0].pDocSummary = self.pDocSummary;
+            self.comments =self.comments.concat(response.data.dataInfo.listData);
 
           }
         }, (response) => {

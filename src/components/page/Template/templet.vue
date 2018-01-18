@@ -23,6 +23,7 @@
     <div class="header">
           <mu-appbar title="PPT模板" style="text-align: center">
             <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+            <mu-icon-button icon="aaa" slot="right"/>
           </mu-appbar>
     </div>
     <div id="scoll">

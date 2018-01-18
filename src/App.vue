@@ -34,13 +34,11 @@
 </style>
 <template>
   <div>
+
       <transition :name="transitionName">
         <router-view class="child-view"></router-view>
       </transition>
-      <div class="loading" v-show="userNo.loading">
-        <mu-circular-progress :size="40"/>
-        <div style="padding-top: 10px">加载中...</div>
-      </div>
+
   </div>
 </template>
 <script>

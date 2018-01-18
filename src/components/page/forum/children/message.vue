@@ -13,7 +13,11 @@
     justify-content: center;
     align-items: center;
   }
-  .flex-demo:hover{
+
+
+
+
+  .line_dehover:hover{
     background: #ddd;
   }
   .flex-demo:last-child{
@@ -28,42 +32,39 @@
   <div class="zhuye">
     <!--<mu-appbar title="知识共享社群" style="text-align: center">-->
     <!--</mu-appbar>-->
-    <div class="line_demo">
-      <div class="flex-demo" @click="hrefTo('CompanyProfile')">
+    <div class="line_demo ">
+      <div class="flex-demo line_dehover" @click="hrefTo('CompanyProfile')">
         <mu-icon value="chrome_reader_mode" :size="30" color="#009688"/>
         <span class="demo_name">公司简介</span>
       </div>
-      <div class="flex-demo" @click="hrefTo('Templet')">
+      <div class="flex-demo line_dehover" @click="hrefTo('Templet')">
         <mu-icon value="markunread_mailbox" :size="30" color="#009688"/>
         <span class="demo_name">PPT模板</span>
       </div>
-      <div class="flex-demo" @click="hrefTo('SunVideo')">
+      <div class="flex-demo line_dehover" @click="hrefTo('SunVideo')">
         <mu-icon value="group_work" :size="30" color="#009688"/>
         <span class="demo_name">欣旺达视频</span>
       </div>
     </div>
-    <div class="line_demo">
-      <div class="flex-demo" @click="hrefTo('Gallery')">
+    <div class="line_demo ">
+      <div class="flex-demo line_dehover" @click="hrefTo('Gallery')">
         <mu-icon value="photo" :size="30" color="#009688"/>
         <span class="demo_name">图库</span>
       </div>
-      <div class="flex-demo" @click="hrefTo('LearnResource')">
+      <div class="flex-demo line_dehover" @click="hrefTo('LearnResource')">
         <mu-icon value="book" :size="30" color="#009688"/>
         <span class="demo_name">学习资源</span>
       </div>
-      <div class="flex-demo" @click="hrefTo('PresidentSpeech')">
+      <div class="flex-demo line_dehover" @click="hrefTo('PresidentSpeech')">
         <mu-icon value="perm_camera_mic" :size="30" color="#009688"/>
-        <span class="demo_name">总裁致辞</span>
+        <span class="demo_name">管理者思想集</span>
       </div>
     </div>
     <div class="line_demo">
 
-
-
-
-      <div class="flex-demo" @click="hrefTo('ProcessManagement')">
+      <div class="flex-demo line_dehover" @click="hrefTo('ProcessManagement')">
         <mu-icon value="import_contacts" :size="30" color="#009688"/>
-        <span class="demo_name">阅读</span>
+        <span class="demo_name">悦读</span>
       </div>
       <div class="flex-demo" style="border: none">
         <!--<mu-icon value="group" :size="30" color="#009688"/>-->

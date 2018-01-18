@@ -23,6 +23,7 @@
     <div class="header">
     <mu-appbar :title="title" style="text-align: center">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
+      <mu-icon-button icon="aaa" slot="right"/>
     </mu-appbar>
     </div>
     <div class="conter" id="scollL">
@@ -58,6 +59,7 @@ import forumLall from "@/components/page/forum/forumcom/forumLall"
       this.fdid  = this.$route.query.id;
       this.title = this.$route.query.name;
       this.pNo = this.$route.query.pNo;
+      this.token = this.$route.query.token;
       this.getdata(this.startPage);
     },
     methods: {
