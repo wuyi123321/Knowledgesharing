@@ -1,6 +1,5 @@
 <style scoped>
  .main{
-   overflow-x: ;
    display: flex;
    flex-direction: column;
  }
@@ -15,6 +14,7 @@
     position: relative;
     user-select: none;
   }
+
   .footer{
     border-top: solid 1px #eee;
     height: 57px;
