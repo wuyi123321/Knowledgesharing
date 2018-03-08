@@ -76,7 +76,7 @@
  .videoit .left{
    width: 35vw;
    height: 90px;
-   background-color: #eee;
+   background-color: #ddd;
    border-radius: 5px;
    overflow: hidden;
    position: relative;
@@ -103,20 +103,22 @@
  .videoit .right>div{
    color: #757575;
  }
+
 </style>
 <template>
   <div class="main">
     <div class="header">
         <mu-appbar title="欣旺达视频" style="text-align: center">
           <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-          <mu-icon-button icon="aaa" slot="right"/>
+          <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+          </mu-icon-menu>
         </mu-appbar>
     </div>
     <div class="conter" id="scoll">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
           <div class="videoit" v-for="item in data" @click="toPlay(item.fileUrl,item.fileType)" >
             <div class="left">
-              <video id="mainvideo"   height="100%"  :src="'http://video.sunwoda.com/'+item.fileUrl+'.'+item.fileType" ></video>
+              <!--<video id="mainvideo"   height="100%"  :src="'http://video.sunwoda.com/'+item.fileUrl+'.'+item.fileType" ></video>-->
               <span>{{item.fdVideoLength}}</span>
               <div class="vidoPlay">
                   <mu-icon value="arrow_right" :size="48"/>

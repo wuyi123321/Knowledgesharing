@@ -41,7 +41,8 @@
     <header>
       <mu-appbar title="学习资料" style="text-align: center">
         <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-        <mu-icon-button icon="aaa" slot="right"/>
+        <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+        </mu-icon-menu>
       </mu-appbar>
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab value="tab1" title="内部资料" style="color: #009688"/>
@@ -61,7 +62,7 @@
           <mu-sub-header>部门培训课件</mu-sub-header>
           <mu-list-item v-for="item in data" :title="item.fTitle" :describeText="item.fileName"
                          v-if="item.type=='510' || item.type=='512' || item.type=='513' || item.type=='514' || item.type=='515' || item.type=='516' || item.type=='517' || item.type=='518' || item.type=='519' || item.type=='520'"
-                        @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+                        @click="goItem(item)">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
             <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -71,7 +72,7 @@
         <mu-divider/>
         <mu-list>
           <mu-sub-header>通识类培训课件</mu-sub-header>
-          <mu-list-item v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='511'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-list-item v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='511'"@click="goItem(item)">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
             <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -83,7 +84,7 @@
       <div v-if="activeTab === 'tab2'">
         <mu-list>
           <mu-sub-header>外训课件</mu-sub-header>
-          <div v-for="item in data" v-if="item.type=='501'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <div v-for="item in data" v-if="item.type=='501'" @click="goItem(item)">
           <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -95,7 +96,7 @@
         </mu-list>
         <mu-list>
           <mu-sub-header>外出峰会学习</mu-sub-header>
-          <div v-for="item in data" v-if="item.type=='502'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <div v-for="item in data" v-if="item.type=='502'" @click="goItem(item)">
             <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -107,7 +108,7 @@
         </mu-list>
         <mu-list>
           <mu-sub-header>外部研讨会、学习会</mu-sub-header>
-          <div v-for="item in data" v-if="item.type=='503'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <div v-for="item in data" v-if="item.type=='503'" @click="goItem(item)">
             <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -119,7 +120,7 @@
         </mu-list>
         <mu-list>
           <mu-sub-header>外部深造课件</mu-sub-header>
-          <div v-for="item in data" v-if="item.type=='504'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <div v-for="item in data" v-if="item.type=='504'" @click="goItem(item)">
             <mu-list-item  :title="item.fTitle" :describeText="item.fileName">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -163,6 +164,10 @@
     methods:{
       back:function () {
         this.$router.go(-1)
+      },
+      goItem:function (item) {
+        localStorage.setItem("contion", JSON.stringify(item));
+        this.$router.push({ path: "fileitem",query: {token:this.token} });
       },
       getdata:function (type) {
         let self = this;

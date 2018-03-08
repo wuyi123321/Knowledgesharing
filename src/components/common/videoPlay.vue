@@ -3,7 +3,8 @@
     <div class="header">
     <mu-appbar title="视频播放" style="text-align: center;background-color: #222">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-      <mu-icon-button icon="aaa" slot="right"/>
+      <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+      </mu-icon-menu>
     </mu-appbar>
     </div>
       <div class="videobox" >

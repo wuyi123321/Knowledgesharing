@@ -28,7 +28,8 @@
     <div class="header">
       <mu-appbar title="管理者思想集" style="text-align: center">
         <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-        <mu-icon-button icon="aaa" slot="right"/>
+        <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+        </mu-icon-menu>
       </mu-appbar>
     </div>
     <div id="scoll">
@@ -42,7 +43,7 @@
 
         <mu-list-item title="对外致辞" toggleNested :open="false">
           <mu-list-item slot="nested" title="面向客户"  titleClass="Tclass" nestedListClass="titleclass" toggleNested :open="false"  style="background-color:#eee;border-bottom: solid #fff 1px">
-            <mu-list-item slot="nested" v-for="item in data" style="background-color: #fff;border-bottom: solid 1px #eee" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='605'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item slot="nested" v-for="item in data" style="background-color: #fff;border-bottom: solid 1px #eee" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='605'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -51,7 +52,7 @@
           </mu-list-item>
 
           <mu-list-item slot="nested" title="面向学校"  style="background-color:#eee;border-bottom: solid #fff 1px" toggleNested :open="false">
-            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee"  :describeText="item.fileName" v-if="item.type=='606'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee"  :describeText="item.fileName" v-if="item.type=='606'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -60,7 +61,7 @@
           </mu-list-item>
 
           <mu-list-item slot="nested" title="面向政府"  style="background-color:#eee;border-bottom: solid #fff 1px" toggleNested :open="false">
-            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee"  :describeText="item.fileName" v-if="item.type=='607'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee"  :describeText="item.fileName" v-if="item.type=='607'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -71,7 +72,7 @@
 
 
           <mu-list-item slot="nested" title="面向商会"  style="background-color:#eee;border-bottom: solid #fff 1px" toggleNested :open="false">
-            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee" :describeText="item.fileName" v-if="item.type=='608'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" style="background-color: #fff;border-bottom: solid 1px #eee" :describeText="item.fileName" v-if="item.type=='608'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -88,7 +89,7 @@
         <mu-list-item title="内部讲话" toggleNested :open="false">
 
           <mu-list-item slot="nested" title="节日致辞" toggleNested :open="false" style="background-color:#eee;border-bottom: solid #fff 1px">
-            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" style="background-color: #fff;border-bottom: solid 1px #eee" v-if="item.type=='604'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" style="background-color: #fff;border-bottom: solid 1px #eee" v-if="item.type=='604'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -96,7 +97,7 @@
             </mu-list-item>
           </mu-list-item>
           <mu-list-item slot="nested" title="会议讲话" toggleNested :open="false" style="background-color:#eee;border-bottom: solid #fff 1px">
-            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" style="background-color: #fff;border-bottom: solid 1px #eee" v-if="item.type=='602'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item slot="nested" v-for="item in data" :title="item.fTitle" :describeText="item.fileName" style="background-color: #fff;border-bottom: solid 1px #eee" v-if="item.type=='602'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -171,6 +172,10 @@
         }else {
           this.dialog = true;
         }
+      },
+      goItem:function (item) {
+        localStorage.setItem("contion", JSON.stringify(item));
+        this.$router.push({ path: "fileitem",query: {token:this.token} });
       },
       download:function (url,name) {
         console.log(url);

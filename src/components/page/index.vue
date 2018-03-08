@@ -87,6 +87,8 @@
         console.log(response);
          if(response.data.statusCode ==0){
            self.userNo.setMess(response.data.dataInfo.singleData.userNo);
+   console.log("aaaaaaaaaa");
+           localStorage.setItem("userNo",response.data.dataInfo.singleData.userNo);
            console.log(self.userNo);
          }
       }, (response) => {

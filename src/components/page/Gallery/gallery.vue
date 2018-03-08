@@ -31,11 +31,12 @@
     <div class="header">
     <mu-appbar title="图片展示" style="text-align: center">
       <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-      <mu-icon-button icon="aaa" slot="right"/>
+      <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+      </mu-icon-menu>
     </mu-appbar>
     </div>
 
-    <div class="conter" id="scoll">
+    <div class="conter" id="scoll1">
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <div class="gridlist-demo-container">
       <mu-grid-list class="gridlist-demo">
@@ -65,39 +66,8 @@
   import bigImg from '@/components/common/bigImg.vue';
   export default {
     data () {
+
       return {
-        list: [
-          {
-          image: img1,
-          title: 'Breakfast',
-          author: 'Myron'
-        }, {
-          image: img2,
-          title: 'Burger',
-          author: 'Linyu'
-        }, {
-          image: img4,
-          title: 'Hats',
-          author: 'kakali'
-        },
-          {
-            image: img5,
-            title: 'Breakfast',
-            author: 'Myron'
-          }, {
-            image: img6,
-            title: 'Burger',
-            author: 'Linyu'
-          }, {
-            image: img7,
-            title: 'Camera',
-            author: 'ruolin'
-          }, {
-            image: img8,
-            title: 'Hats',
-            author: 'kakali'
-          }
-          ],
         refreshing:false,
         trigger:null,
         imgSrc:"",
@@ -106,12 +76,12 @@
       }
     },
     mounted:function () {
-      this.refreshing=true;
+      this.refreshing=false;
       this.getdata(4)
     },
     methods: {
       refresh:function () {
-        this.refreshing=true;
+        this.refreshing=false;
         this.getdata(4)
       },
       getdata:function (type) {
@@ -121,7 +91,7 @@
         self.$http.get(url
         ).then((response) => {
           console.log(response);
-          self.trigger = document.getElementById("scoll");
+          self.trigger = document.getElementById("scoll1");
           self.refreshing=false;
           if(response.data.dataInfo){
             self.data = response.data.dataInfo.listData;

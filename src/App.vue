@@ -56,11 +56,12 @@
         if(to.path == '/forummessage'){
           this.transitionName = 'slide-right';
         }
-        else if(to.path == '/forumItem'){
+        else if(to.path == '/forumItem' || to.path == '/pdfRead'){
           this.transitionName = 'slide-left';
           return 0
         }
-        else if(from.path == '/pdfRead' || from.path == '/forumIist' || from.path == '/forumItem' || from.path == '/videoPlay' || from.path == '/collection'){
+
+        else if(from.path == '/pdfRead' || from.path == '/forumIist' || from.path == '/forumItem' || from.path == '/videoPlay' || from.path == '/collection' || from.path == '/fileitem'){
           this.transitionName = 'slide-right';
         }
 //        else if(from.path == '/videoPlay'){

@@ -11,6 +11,7 @@ import processmanagement from '@/components/page/ProcessManagement/processmanage
 import forum from '@/components/page/forum/forum'
 import pdfRead from '@/components/common/pdfRead'
 import videoPlay from '@/components/common/videoPlay'
+import fileitem from '@/components/common/fileitem'
 import myforum from '@/components/page/forum/children/my'
 import forummessage from '@/components/page/forum/children/message'
 import forumcard from '@/components/page/forum/children/card'
@@ -45,6 +46,7 @@ export default new Router({
     {path: '/forumItem',component: forumItem},
     {path: '/forumIist',component: forumIist},
     {path: '/videoPlay',component: videoPlay},
-    {path: '/pdfRead',component: pdfRead}
+    {path: '/pdfRead',component: pdfRead},
+    {path: '/fileitem',component: fileitem}
   ]
 })

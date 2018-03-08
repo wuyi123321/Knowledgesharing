@@ -5,7 +5,7 @@
     flex-direction: column;
   }
   .main header{
-    height: 104px;
+    height: 124px;
   }
   .flex-demo{
     height: 48px;
@@ -34,14 +34,19 @@
   #aa .mu-tab-link-highlight{
     background-color: #009866;
   }
+  /*.mu-paper-1 {*/
+    /*box-shadow: 0 0px 0px rgba(0,0,0,.117647), 0 1px 0px rgba(0,0,0,.117647);*/
+  /*}*/
 </style>
 <template>
 
   <div class="main" id="aa">
     <header>
+      <!--<div style="background-color: #009688;height: 20px"></div>-->
       <mu-appbar title="阅读" style="text-align: center">
         <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-        <mu-icon-button icon="aaa" slot="right"/>
+        <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+        </mu-icon-menu>
       </mu-appbar>
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab value="tab1" title="书单" style="color: #009688"/>
@@ -54,7 +59,7 @@
       <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
       <div v-if="activeTab === 'tab1'">
         <div v-for="item in data">
-          <mu-list-item  :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='701'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-list-item  :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='701'" @click="goItem(item)">
             <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
             <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
             <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -65,7 +70,7 @@
       </div>
       <div v-if="activeTab === 'tab2'">
         <div v-for="item in data">
-            <mu-list-item  :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='702'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item  :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='702'" @click="goItem(item)">
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
               <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
@@ -108,6 +113,10 @@
         console.log("bbb");
         this.refreshing=true;
         this.getdata(7);
+      },
+      goItem:function (item) {
+        localStorage.setItem("contion", JSON.stringify(item));
+        this.$router.push({ path: "fileitem",query: {token:this.token} });
       },
       getdata:function (type) {
         let self = this;

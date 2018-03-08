@@ -35,13 +35,18 @@
     padding-left: 12px;
     padding-right: 12px;
   }
+ /*.mu-paper-1 {*/
+   /*box-shadow: 0 0px 0px rgba(0,0,0,.117647), 0 1px 0px rgba(0,0,0,.117647);*/
+ /*}*/
 </style>
 <template>
   <div class="main">
     <div class="header">
+
+      <!--<div style="background-color: #009688;height: 20px"></div>-->
     <mu-appbar title="知识共享社区" style="text-align: center">
-      <mu-icon-button icon="navigate_before" slot="left" @click="closePage"/>
-      <mu-icon-button icon="aaa" slot="right"  />
+      <!--<mu-icon-button icon="navigate_before" slot="left" @click="closePage"/>-->
+      <!--<mu-icon-button icon="aaa" slot="right"  />-->
     </mu-appbar>
     </div>
     <div class="conter" id="scoll">

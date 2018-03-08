@@ -34,11 +34,14 @@
   #aa .mu-tab-link-highlight{
     background-color: #009866;
   }
+
+
 </style>
 <template>
 
   <div class="main" id="aa">
     <header>
+
         <mu-appbar title="公司简介" style="text-align: center">
           <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
           <mu-icon-menu icon="more_vert" slot="right">
@@ -46,10 +49,10 @@
             <mu-menu-item title="英文"/>
           </mu-icon-menu>
         </mu-appbar>
-      <mu-tabs :value="activeTab" @change="handleTabChange">
-        <mu-tab value="tab1" title="公司简介" style="color: #009688"/>
-        <mu-tab value="tab2" title="各事业部简介" style="color: #009688"/>
-      </mu-tabs>
+        <mu-tabs :value="activeTab" @change="handleTabChange">
+          <mu-tab value="tab1" title="公司简介" style="color: #009688"/>
+          <mu-tab value="tab2" title="各事业部简介" style="color: #009688"/>
+        </mu-tabs>
         <mu-divider/>
 
     </header>
@@ -60,31 +63,31 @@
         <mu-flat-button label="确定" slot="actions" primary @click="dialog=false"/>
       </mu-dialog>
       <div v-if="activeTab === 'tab1'">
-      <mu-list>
-        <mu-sub-header>政府受众</mu-sub-header>
-        <mu-list-item  v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='1000'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-          <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-          <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-          <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-          <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
-      <mu-list>
-        <mu-sub-header>客户受众</mu-sub-header>
-        <mu-list-item  v-for="item in data" :title="item.fTitle" v-if="item.type=='1001'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
-          <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
-          <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
-          <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
-          <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider/>
+          <mu-list>
+            <mu-sub-header>政府受众</mu-sub-header>
+            <mu-list-item  v-for="item in data" :title="item.fTitle" :describeText="item.fileName" v-if="item.type=='1000'" @click="goItem(item)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+          </mu-list>
+          <mu-divider/>
+          <mu-list>
+            <mu-sub-header>客户受众</mu-sub-header>
+            <mu-list-item  v-for="item in data" :title="item.fTitle" v-if="item.type=='1001'" @click="goItem(item)">
+              <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
+              <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
+              <mu-avatar :src="imgPdf" slot="leftAvatar" v-if="item.fileType == 'pdf'"/>
+              <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
+            </mu-list-item>
+          </mu-list>
+          <mu-divider/>
       </div>
       <div v-if="activeTab === 'tab2'">
-        <mu-list>
+          <mu-list>
           <!--<mu-sub-header>政府受众</mu-sub-header>-->
-          <div v-for="item in data" v-if="item.type!='1000' && item.type!='1001' " @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <div v-for="item in data" v-if="item.type!='1000' && item.type!='1001' " @click="goItem(item)">
             <mu-list-item  :title="item.fTitle" :describeText="item.fileName" >
               <mu-avatar :src="imgW" slot="leftAvatar" v-if="item.fileType == 'doc' || item.fileType == 'docx'"/>
               <mu-avatar :src="imgP" slot="leftAvatar" v-if="item.fileType == 'ppt' || item.fileType == 'pptx'"/>
@@ -152,7 +155,10 @@
           console.log('error');
         });
       },
-
+      goItem:function (item) {
+        localStorage.setItem("contion", JSON.stringify(item));
+        this.$router.push({ path: "fileitem",query: {token:this.token} });
+      },
       handleTabChange (val) {
         this.activeTab = val
       },

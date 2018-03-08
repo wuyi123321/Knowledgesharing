@@ -19,11 +19,13 @@
 </style>
 
 <template>
+
   <div class="main">
     <div class="header">
           <mu-appbar title="PPT模板" style="text-align: center">
             <mu-icon-button icon="navigate_before" slot="left" @click="back"/>
-            <mu-icon-button icon="aaa" slot="right"/>
+            <mu-icon-menu icon="more_vert" slot="right" style="opacity: 0">
+            </mu-icon-menu>
           </mu-appbar>
     </div>
     <div id="scoll">
@@ -34,7 +36,7 @@
       </mu-dialog>
         <mu-list>
           <mu-sub-header>月度例会PPT模板</mu-sub-header>
-            <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='201'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+            <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='201'" @click="goItem(item)">
                 <mu-avatar :src="imgP" slot="leftAvatar"/>
                 <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
             </mu-list-item>
@@ -42,15 +44,16 @@
         <mu-divider/>
         <mu-list>
           <mu-sub-header>讨论型PPT模板</mu-sub-header>
-          <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='202'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='202'" @click="goItem(item)">
             <mu-avatar :src="imgP" slot="leftAvatar"/>
             <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
           </mu-list-item>
         </mu-list>
         <mu-divider/>
+
         <mu-list>
           <mu-sub-header>HR类PPT模板</mu-sub-header>
-          <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='203'" @click="showPdf(item.fileType,item.fileUrl,item.fileName)">
+          <mu-list-item  v-for="item in data" :title="item.fileName"  v-if="item.type=='203'" @click="goItem(item)">
             <mu-avatar :src="imgP" slot="leftAvatar"/>
             <mu-icon value="get_app" slot="right" @click.stop="download(item.fileUrl+'.'+item.fileType,item.fileName)"/>
           </mu-list-item>
@@ -86,6 +89,10 @@
         this.refreshing=true;
         this.getdata(2);
       },
+        goItem:function (item) {
+          localStorage.setItem("contion", JSON.stringify(item));
+          this.$router.push({ path: "fileitem",query: {token:this.token} });
+        },
         getdata:function (type) {
           let self = this;
           var url =self.path+ "findKnowledge.json"+'?token='+self.token+"&fileLangType=1&type="+type;
