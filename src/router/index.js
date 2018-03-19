@@ -33,7 +33,7 @@ export default new Router({
     { path: '/SunVideo',component: sunvideo},
     { path: '/Gallery', component: gallery},
     {path: '/LearnResource',component: learnresource},
-    {path: '/PresidentSpeech',component: presidentspeech},
+    {path: '/PresidentSpeech',component: presidentspeech,meta: { keepAlive: true }},
     {path: '/ProcessManagement',component: processmanagement},
     {path: '/forum',component: forum,children:[
       {path: '/', redirect: '/forummessage',},

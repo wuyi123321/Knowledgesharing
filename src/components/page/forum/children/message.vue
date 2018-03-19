@@ -35,6 +35,7 @@
     <div class="line_demo ">
       <div class="flex-demo line_dehover" @click="hrefTo('CompanyProfile')">
         <mu-icon value="chrome_reader_mode" :size="30" color="#009688"/>
+        <!--<mu-icon value="home"/>-->
         <span class="demo_name">公司简介</span>
       </div>
       <div class="flex-demo line_dehover" @click="hrefTo('Templet')">
@@ -86,13 +87,14 @@
     mounted:function () {
       let self = this;
       console.log(this);
-      var url ='http://appinter.sunwoda.com/common/getPersonalInfo.json?token='+self.token;
+      var url =self.path+'getPersonalInfo.json?token='+self.token;
       console.log(url);
       self.$http.get(url).then((response) => {
         console.log(response);
         if(response.data.statusCode ==0){
           self.userNo.setMess(response.data.dataInfo.singleData.userNo);
           localStorage.setItem("userNo",response.data.dataInfo.singleData.userNo);
+          localStorage.setItem("userName",response.data.dataInfo.singleData.userName);
           console.log(self.userNo);
         }
       }, (response) => {

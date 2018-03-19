@@ -222,7 +222,7 @@
       },
       refresh:function () {
         this.refreshing=true;
-        this.getdata(2);
+        this.getdata(this.item.fid);
       },
 
 //      获取文件的评论信息

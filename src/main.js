@@ -16,7 +16,8 @@ Vue.prototype.$http=axios
 Vue.config.productionTip = false
 Factclick.attach(document.body);
 Vue.prototype.path = "http://appinter.sunwoda.com/common/knowledgeSharing/"
-// Vue.prototype.path = "http://172.30.128.32:8080/swdAPP/common/knowledgeSharing/"
+// Vue.prototype.path = "http://appinter.sunwoda.com/weixin/knowledgeSharing/"
+ // Vue.prototype.path = "http://172.30.128.32:8081/swdAPP/weixin/knowledgeSharing/"
 console.log(window.location.toString().split("token=")[1]);
 Vue.prototype.token = window.location.toString().split("token=")[1];
 // Vue.prototype.token = "73938de85af7d0128e400b1988077ddd";

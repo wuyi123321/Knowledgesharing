@@ -98,22 +98,25 @@
       getPno:function () {
         let self = this;
         console.log(this);
-        var url ='http://appinter.sunwoda.com/common/getPersonalInfo.json?token='+self.token;
+        var url =self.path+'getPersonalInfo.json?token='+self.token;
         console.log(url);
         self.$http.get(url).then((response) => {
           console.log(response);
           if(response.data.statusCode ==0){
             self.userNo.setMess(response.data.dataInfo.singleData.userNo);
-            console.log(self.userNo);
+            localStorage.setItem("userNo",response.data.dataInfo.singleData.userNo);
+            localStorage.setItem("userName",response.data.dataInfo.singleData.userName);
             self.getdata();
           }
         }, (response) => {
           console.log('error');
         });
       },
+
+
       getdata:function(){
         let self = this;
-        var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+self.userNo.userNo;
+        var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+localStorage.getItem('userNo');
         console.log(url);
         self.$http.get(url
         ).then((response) => {

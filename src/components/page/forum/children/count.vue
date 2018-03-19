@@ -16,7 +16,7 @@
       <div v-for="i in m.cList" @click="goforumItem(i.fdId,i.fdName)" >
         <mu-list-item :title="i.fdName" :describeText="'主题:'+i.fdTopicCount+'   |   回帖数:'+(i.fdPostCount-i.fdTopicCount)">
           <mu-avatar icon="forum" slot="leftAvatar"/>
-          <mu-badge :content="'今日:'+m.fdCountTopic" slot="right"/>
+          <mu-badge :content="'今日:'+i.fdCountTopic" slot="right"/>
         </mu-list-item>
         <mu-divider/>
       </div>

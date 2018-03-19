@@ -261,34 +261,7 @@
 //      获取本人信息（核对是否能删除回复）
       getPermess:function(){
         let self = this;
-        if(self.userNo.userNo == ""){
-          var url ='http://appinter.sunwoda.com/common/getPersonalInfo.json?token='+self.token;
-          console.log(url);
-          self.$http.get(url).then((response) => {
-            console.log(response);
-            if(response.data.statusCode ==0){
-              self.userNo.setMess(response.data.dataInfo.singleData.userNo);
-              console.log(self.userNo);
-              var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+self.userNo.userNo;
-              console.log(url);
-              self.$http.get(url
-              ).then((response) => {
-                console.log(response);
-                self.personNo = response.data.dataInfo.listData[0].fdId
-                if(response.data.statusCode !=0){
-                  alert("暂无数据");
-                  return 0
-                }
-              }, (response) => {
-                console.log('error');
-              });
-            }
-          }, (response) => {
-            console.log('error');
-          });
-
-        }else {
-          var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+self.userNo.userNo;
+          var url =self.path+ 'findUserPost.json'+'?token='+self.token+"&userNo="+localStorage.getItem("userNo");
           console.log(url);
           self.$http.get(url
           ).then((response) => {
@@ -301,8 +274,6 @@
           }, (response) => {
             console.log('error');
           });
-        }
-
       },
       close (position) {
         this.bottomPopup = false
@@ -361,7 +332,7 @@
             self.bottomPopup = false;
             self.recont = "";
 //            self.$router.go(0);
-            response.data.dataInfo.listData[0].fdName = self.card.fdName;
+            response.data.dataInfo.listData[0].fdName = localStorage.getItem("userName");
             response.data.dataInfo.listData[0].pName = self.retoName;
             response.data.dataInfo.listData[0].pDocSummary = self.pDocSummary;
             self.comments =self.comments.concat(response.data.dataInfo.listData);
