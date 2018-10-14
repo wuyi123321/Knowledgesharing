@@ -25,7 +25,6 @@
 
   }
  .mu-text-field {
-
       width: 100%;
       min-height: 48px;
       display: inline-block;
@@ -56,6 +55,8 @@
     .setext p:hover{
       background-color: rgba(0,0,0,0.3);
     }
+
+
 </style>
 <template>
   <div class="main" id="itemScoll">
@@ -82,6 +83,7 @@
          totalPage:0,
          startPage:1,
          searchText:"",
+
       }
     },
     mounted:function () {

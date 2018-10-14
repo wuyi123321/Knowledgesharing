@@ -23,10 +23,7 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      redirect: '/forum',
-    },
+    {path: '/', redirect: '/forum',},
     {path: '/index', component: index,},
     { path: '/CompanyProfile',component:companyprofile, meta: { keepAlive: true }},
     { path: '/Templet',component:templet, meta: { keepAlive: true }},
